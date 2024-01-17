@@ -1,0 +1,244 @@
+﻿@model IEnumerable<CTN4_Data.Models.DB_CTN4.HoaDon>
+
+@{
+    ViewData["Title"] = "HoaDon";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="tracking_box_area section_gap">
+
+    <div class="container">
+        <div class="tracking_box_inner">
+            <p>
+                Hãy nhập mã đơn hàng của bạn để tìm kiếm nhanh
+            </p>
+            <div class="row">
+                <form asp-action="LocHD" class="col-md-6 tracking_form" method="post" novalidate="novalidate">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="order1" name="MaHD" placeholder="Mã Hóa đơn" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Mã Hóa đơn'">
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" value="submit" class="primary-btn">Tìm</button>
+                    </div>
+                </form>
+                <form id="searchForm" asp-action="TimKiemNgay" class="col-md-6 tracking_form" method="post" novalidate="novalidate" onsubmit="return confirmSearch()">
+                    <div>
+                        Tìm kiếm theo ngày đặt hàng:
+                        <div>
+                            Từ
+                            <input name="NgayDau" id="NgayDau" type="datetime-local" oninput="luuGiaTri(this)">
+                            </input>
+                            Đến
+                            <input name="NgayCuoi" id="NgayCuoi" type="datetime-local" oninput="luuGiaTri(this)">
+                            </input>
+
+                            <!-- Thêm mã JavaScript để giữ nguyên giá trị ngày -->
+                            <button type="submit" class="btn btn-primary">Tìm</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        @if (TempData["TB4"] != null)
+        {
+            <div class="alert alert-danger">@TempData["TB4"]</div>
+        }
+        <h1>Danh sách hóa đơn của bạn</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        Mã hóa đơn
+                    </th>
+                    <th>
+                        Ngày đặt hàng
+                    </th>
+                    <th>
+                        Trạng thái
+                    </th>
+                    <th>
+                        Tổng tiền
+                    </th>
+                    <th>
+                        Thanh toán
+                    </th>
+                    <th>
+                        Giao hàng
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+
+                    <tr>
+                        <td>
+                            #@Html.ActionLink(@item.MaHoaDon, "HoaDonChiTiet", new { id = item.Id })
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NgayDat)
+                        </td>
+                        <td>
+                            @if (item.TrangThai == "Đơn hàng bị hủy")
+                            {
+                                <b style="color:red">@item.TrangThai</b>
+                            }
+                            else if (item.TrangThai == "Giao hàng thành công")
+                            {
+                                <b style="color:green">@item.TrangThai</b>
+                            }
+                            else if (item.TrangThai == "Giao hàng thất bại")
+                            {
+                                <b style="color:orange">@item.TrangThai</b>
+                            }
+                            else
+                            {
+                                <div>@item.TrangThai</div>
+                            }
+                        </td>
+                        <th>
+                            @Html.Raw(FormatCurrency(item.TongTien))
+                        </th>
+                        @if (item.TrangThaiThanhToan == true)
+                        {
+                            <td><div class="hoanthanh">Đã thanh toán</div></td>
+
+                        }
+                        else
+                        {
+                            <td><div class="chuaht">Chưa thanh toán</div></td>
+                        }
+                        @if (item.NgayGiao != null)
+                        {
+
+                            <td>
+                                @item.NgayGiao
+                            </td>
+                        }
+                        else
+                        {
+                            <td><div class="chuaht">Chưa giao hàng</div></td>
+                        }
+                    </tr>
+
+
+                }
+            </tbody>
+        </table>
+    </div>
+</section>
+<script>
+    @functions {
+        public string FormatCurrency(float? price)
+        {
+            string formattedPrice = string.Format("{0:N0}", price); // Định dạng số và thêm dấu phân cách ngàn
+            return formattedPrice + "VND"; // Thêm ký hiệu đồng (₫) vào cuối
+        }
+    };
+</script>
+<script type="text/javascript">
+    (function (d, m) {
+        var kommunicateSettings =
+            { "appId": "241b5fa6e937de9fc9ca1041a7dddc01", "popupWidget": true, "automaticChatOpenOnNavigation": true };
+        var s = document.createElement("script"); s.type = "text/javascript"; s.async = true;
+        s.src = "https://widget.kommunicate.io/v2/kommunicate.app";
+        var h = document.getElementsByTagName("head")[0]; h.appendChild(s);
+        window.kommunicate = m; m._globals = kommunicateSettings;
+    })(document, window.kommunicate || {});
+    /* NOTE : Use web server to view HTML files as real-time update will not work if you directly open the HTML file in the browser. */
+</script>
+<style>
+    .a1 {
+        background-color: lightcoral
+    }
+
+    .chuaht {
+        color: red
+    }
+
+    .hoanthanh {
+        color: yellowgreen
+    }
+
+    .custom-edit-link {
+        color: black; /* Màu đỏ */
+        /* Các thuộc tính CSS khác nếu cần */
+    }
+</style>
+<script src="~/js/vendor/jquery-2.2.4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.~/js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
+        crossorigin="anonymous"></script>
+<script src="~/js/vendor/bootstrap.min.js"></script>
+<script src="~/js/jquery.ajaxchimp.min.js"></script>
+<script src="~/js/jquery.nice-select.min.js"></script>
+<script src="~/js/jquery.sticky.js"></script>
+<script src="~/js/nouislider.min.js"></script>
+<script src="~/js/countdown.js"></script>
+<script src="~/js/jquery.magnific-popup.min.js"></script>
+<script src="~/js/owl.carousel.min.js"></script>
+<!--gmaps Js-->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
+<script src="~/js/gmaps.min.js"></script>
+<script src="~/js/main.js"></script>
+
+    <script>
+        // Hàm để lưu giữ giá trị ngày vào localStorage
+        function saveDateValues() {
+            localStorage.setItem("previousStartDate", document.getElementById("NgayDau").value);
+            localStorage.setItem("previousEndDate", document.getElementById("NgayCuoi").value);
+        }
+
+    // Hàm để khôi phục giá trị ngày từ localStorage
+    function restoreDateValues() {
+        var previousStartDate = localStorage.getItem("previousStartDate");
+        var previousEndDate = localStorage.getItem("previousEndDate");
+
+        if (previousStartDate !== null && previousEndDate !== null) {
+            document.getElementById("NgayDau").value = previousStartDate;
+            document.getElementById("NgayCuoi").value = previousEndDate;
+        }
+    }
+
+    // Hàm xác nhận tìm kiếm
+    function confirmSearch() {
+        // Lưu giữ giá trị ngày trước khi thực hiện tìm kiếm
+        saveDateValues();
+
+        // Hiển thị hộp thoại xác nhận
+        var isConfirmed = confirm("Bạn có chắc chắn muốn thực hiện tìm kiếm?");
+
+        // Nếu người dùng xác nhận, thực hiện submit form
+        if (isConfirmed) {
+            document.getElementById("searchForm").submit();
+        } else {
+            // Nếu người dùng không xác nhận, khôi phục giá trị ngày từ localStorage
+            restoreDateValues();
+        }
+        // Prevent the form from submitting immediately
+        return false;
+    }
+
+    // Gọi hàm khôi phục giá trị ngày khi trang được tải lại
+    document.addEventListener("DOMContentLoaded", restoreDateValues);
+
+    // Hàm để lưu giá trị từng trường vào localStorage khi có sự thay đổi
+    function luuGiaTri(inputElement) {
+        var fieldName = inputElement.name;
+        var inputValue = inputElement.value;
+        localStorage.setItem(fieldName + 'Value', inputValue);
+    }
+
+    // Hàm để khôi phục giá trị từ localStorage khi trang được tải lại
+    window.onload = function () {
+        var formElements = document.getElementById('searchForm').elements;
+        for (var i = 0; i < formElements.length; i++) {
+            var fieldName = formElements[i].name;
+            var storedValue = localStorage.getItem(fieldName + 'Value');
+            if (storedValue) {
+                formElements[i].value = storedValue;
+            }
+        }
+    };
+</script>

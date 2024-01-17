@@ -1,0 +1,55 @@
+﻿@model CTN4_Data.Models.DB_CTN4.Mau
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<br />
+<br />
+<br />
+
+<h1>Chi tiết</h1>
+
+<div>
+    <h4>màu</h4>
+    <hr />
+    <dl class="row">
+        
+        <dt class = "col-sm-2">
+            Tên màu
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TenMau)
+        </dd>
+        <dt class = "col-sm-2">
+           Trạng thái
+        </dt>
+        <dd class = "col-sm-10">
+            @if (Model.TrangThai == true)
+            {
+                <a>Hiển thị trên trang web</a>
+            }
+            else
+            {
+                <a>Tạm ẩn</a>
+            }
+        </dd>
+        <dt class = "col-sm-2">
+           Tình trạng
+        </dt>
+        <dd class = "col-sm-10">
+             @if (Model.Is_detele == true)
+            {
+                <a>Hiển thị</a>
+            }
+            else
+            {
+                <a>Tạm ẩn</a>
+            }
+        </dd>
+    </dl>
+</div>
+<div>
+    <a>@Html.ActionLink("Chỉnh sửa", "Edit",new { id=Model.Id },new { style = "text-decoration: none; color: black;" }) |</a>
+    <a asp-action="Index" style="color: black;">Quay về</a>
+</div>

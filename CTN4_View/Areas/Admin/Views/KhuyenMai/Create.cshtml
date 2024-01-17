@@ -1,0 +1,680 @@
+﻿@model CTN4_Data.Models.DB_CTN4.KhuyenMai
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<style>
+
+    th, td {
+        max-width: 150px; /* Giới hạn chiều rộng tối đa của cột */
+        overflow: hidden;
+        text-overflow: ellipsis; /* Hiển thị dấu ba chấm (...) nếu giá trị quá dài */
+        white-space: nowrap; /* Ngăn chuyển dòng */
+        word-wrap: break-word; /* Cho phép xuống dòng nếu giá trị quá dài */
+    }
+
+    .form-container {
+        margin: 10px 0;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+    }
+
+    #khachHangSelect {
+        width: 200px; /* Set the width of the select box */
+        padding: 8px; /* Add padding for better spacing */
+    }
+
+    #selectedValues {
+        margin-top: 10px; /* Add margin to separate from the select box */
+        padding: 10px; /* Add padding for better spacing */
+        border: 1px solid #ccc; /* Add a border for a cleaner look */
+        border-radius: 5px; /* Add border-radius for rounded corners */
+    }
+
+    /* Style the options within the select box */
+    #khachHangSelect option {
+        background-color: #fff; /* Set background color for options */
+        color: #333; /* Set text color for options */
+    }
+
+        /* Style the selected option */
+        #khachHangSelect option:selected {
+            background-color: #007bff; /* Set background color for selected option */
+            color: #fff; /* Set text color for selected option */
+        }
+    #khachHangSelect {
+        width: 100%;
+        height: 150px; /* Adjust height as needed */
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        background-color: white;
+        padding: 5px;
+    }
+
+    #selectedValues {
+        width: 100%;
+        height: 100px; /* Adjust height as needed */
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        padding: 5px;
+        resize: none; /* Prevents resizing */
+    }
+
+    label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+
+    .form-container {
+        border: 1px solid #ccc;
+        padding: 10px;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+        margin: 20px;
+        position: relative; /* Đặt vị trí của form là relative để có thể đặt vị trí tuyệt đối cho nội dung trong form */
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+
+        .form-group .text-danger {
+            display: block;
+            margin-top: 5px;
+        }
+
+    .corner-text {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 10px;
+        font-size: 14px;
+    }
+
+    #errorDiv {
+        color: #ff0000; /* Màu chữ là màu đỏ */
+        font-size: 14px; /* Kích thước chữ */
+        margin-top: 10px; /* Khoảng cách từ phía trên */
+    }
+
+    /* Hoặc bạn có thể sử dụng class để thay đổi CSS */
+    .error-message {
+        color: #ff0000;
+        font-size: 14px;
+        margin-top: 10px;
+    }
+
+</style>
+
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+<div class="row">
+    <div class="col-md-7" style=" margin-top:100px">
+        <h4> Tạo khuyến mãi</h4>
+        
+        <div class="row">
+            <div class="container">
+            <div class="col-md-9">
+                    @using (Html.BeginForm("Creates", "KhuyenMai", FormMethod.Post, new { id = "create-form" }))
+                    {
+                       
+                     @Html.AntiForgeryToken()
+                        @if (!string.IsNullOrEmpty(ViewBag.Message))
+                        {
+                            <span class="text-danger">@ViewBag.Message</span>
+                        }
+                        <div id="errorDiv" class="text-danger"></div>
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-container">
+                      
+                        <div class="corner-text" onclick="generateRandomCode()">Random Code Generator</div>
+
+                        <div class="form-group">
+                            <label asp-for="MaKhuyenMai" class="control-label">Mã khuyến mãi</label>
+                                <input asp-for="MaKhuyenMai" id="MaKhuyenMai" class="form-control" maxlength="13" />
+                            <span asp-validation-for="MaKhuyenMai" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Ghichu" class="control-label"> Ghi chú</label>
+                                <input asp-for="Ghichu" class="form-control" maxlength="100" />
+                            <span asp-validation-for="Ghichu" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-container">
+                        <div class="form-group">
+                            <label asp-for="NgayBatDau" class="control-label">Ngày bắt đầu</label>
+                            <input asp-for="NgayBatDau" class="form-control" />
+                            <span asp-validation-for="NgayBatDau" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="NgayKetThuc" class="control-label">Ngày kết thúc</label>
+                            <input asp-for="NgayKetThuc" class="form-control" />
+                            <span asp-validation-for="NgayKetThuc" class="text-danger"></span>
+                        </div>
+                    </div>
+                        <div class="form-container" id="selectkh">
+                            <label for="khachHangSelect">Chọn Khách Hàng gửi gmail thông báo:</label>
+                            <select id="khachHangSelect" multiple>
+                                <!-- Options will be dynamically added here -->
+                            </select>
+                        </div>
+                        <div class="form-container" id="formContainer">
+                            <textarea id="selectedValues" placeholder="Thông tin khách hàng được chọn" readonly></textarea>
+                        </div>
+                        <div class="form-container">
+                            <th>
+                                <select class="form-select form-select-lg mb-3" id="selectOption" required>
+                                    <option disabled selected class="default-option">Chọn...</option>
+                                    <option value="1">Đồng giá</option>
+                                    <option value="2">Giảm Giá Sản Phẩm</option>
+                                    <option value="3">Mua 1 tặng 1</option>
+                                </select>
+                            </th>
+                        </div>
+                        <div class="form-container" id="Mua1Tang1" style="display: none;">
+                        <input type="hidden" asp-for="Mua1tang1"  name="Mua1tang1" value="false" />
+                        <label>Mua 1 tặng 1:</label>
+                            <div id="displayElement"></div>
+                        </div>
+                        <div class="form-container" id="soTienGiamGroup" style="display: none;">
+                            <select id="luaChonGiamGia" class="form-select" aria-label="Default select example">
+                                <option selected disabled>Chọn giảm giá theo... </option>
+                                <option value="1">Giảm Giá theo %</option>
+                                <option value="2">Giảm Giá theo tiền</option>
+                            </select>
+                            <div class="form-group" id="phanTramGroup" style="display: none;">
+                                <label asp-for="PhanTramGiamGia" class="control-label">Phần trăm giảm giá</label>
+                                <div class="input-group">
+                                    <input asp-for="PhanTramGiamGia" class="form-control" oninput="this.value = this.value.replace(/[^0-9]/g, '');" maxlength="13" />
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">%</span>
+                                    </div>
+                                </div>
+                                <span asp-validation-for="PhanTramGiamGia" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group" id="soTienGroup" style="display: none;">
+                                <label asp-for="SoTienGiam" class="control-label">Số tiền giảm</label>
+                                <div class="input-group">
+                                    <input asp-for="SoTienGiam" class="form-control" oninput="this.value = this.value.replace(/[^0-9]/g, '');" maxlength="13" />
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">đ</span>
+                                    </div>
+                                </div>
+                                <span asp-validation-for="SoTienGiam" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-container" id="dongGiaGroup" style="display: none;">
+                            <label asp-for="DongGia" class="control-label">Đồng giá</label>
+                            <div class="input-group">
+                                <input asp-for="DongGia" class="form-control"  oninput="this.value = this.value.replace(/[^0-9]/g, '');" maxlength="13" />
+                                <div class="input-group-append">
+                                    <span class="input-group-text">đ</span>
+                                </div>
+                            </div>
+                            <span asp-validation-for="DongGia" class="text-danger"></span>
+                        </div>
+                 
+                       
+                       
+                    <div class="form-group">
+                            <input  type="submit" id="createkh" class="btn btn-primary" />
+                    </div>
+                        <div id="errorDiv" class="text-danger"></div>
+               
+                }
+                </div>
+            </div>         
+        </div>
+        </div>
+ 
+    <div class="col-md-5" style=" margin-top:100px">
+
+        <h4> Tóm tắt</h4>
+        <div class="form-container">
+        <!-- Hiển thị giá trị nhập vào trong bảng -->
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Trường</th>
+                    <th scope="col">Giá Trị</th>
+                </tr>
+            </thead>
+            <tbody id="display-values">
+                <!-- Các giá trị nhập vào sẽ được hiển thị ở đây -->
+            </tbody>
+        </table>
+    </div>
+    </div>
+        </div>
+            <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+            <script>
+
+    document.getElementById('selectOption').addEventListener('change', function () {
+        var mua1Tang1Field = document.getElementById('Mua1Tang1').querySelector('input');
+        mua1Tang1Field.value = this.value === '3' ? 'true' : 'false';
+        updateDisplay(mua1Tang1Field.value);
+
+            
+    });
+
+    var emailselect = [];
+    function updateDisplay(value) {
+        var displayValue = value === 'true' ? 'Áp dụng' : 'Không áp dụng';
+        // Hiển thị giá trị trên view, có thể sử dụng innerHTML hoặc innerText của một phần tử
+        document.getElementById('displayElement').innerText = displayValue;
+    }
+
+    document.getElementById("luaChonGiamGia").addEventListener("change", function () {
+        var luaChon = this.value;
+        if (luaChon === "1") {
+            document.getElementById("phanTramGroup").style.display = "block";
+            document.getElementById("soTienGroup").style.display = "none";
+            document.getElementById("Mua1Tang1").style.display = "none";
+        } else if (luaChon === "2") {
+            document.getElementById("phanTramGroup").style.display = "none";
+            document.getElementById("soTienGroup").style.display = "block";
+            document.getElementById("Mua1Tang1").style.display = "none";
+
+        } else if (luaChon === "3") {
+            document.getElementById("phanTramGroup").style.display = "none";
+            document.getElementById("soTienGroup").style.display = "none";
+            document.getElementById("Mua1Tang1").style.display = "block";
+        } else {
+            document.getElementById("phanTramGroup").style.display = "block";
+            document.getElementById("soTienGroup").style.display = "block";
+            document.getElementById("Mua1Tang1").style.display = "block";
+        }
+    });
+
+    $(document).ready(function () {
+        var selectkhSelect = $('#khachHangSelect');
+        var selectedOptions = []; // Array to store selected options
+
+        $.ajax({
+            type: 'GET',
+            url: '/admin/KhuyenMai/Getallkh',
+            dataType: 'json',
+            success: function (data) {
+
+                selectkhSelect.append('<option value="" disabled>Chọn...</option>');
+
+                $.each(data, function (index, khachHang) {
+                    var optionHtml = '<option value="' + khachHang.email + '" data-ten="' + khachHang.tenKhachHang + '">' + khachHang.tenKhachHang + ' -- ' + khachHang.email + '</option>';
+                    selectkhSelect.append(optionHtml);
+                });
+
+                selectkhSelect.change(function () {
+                    var clickedOption = $(this).find('option:selected');
+
+                    if (clickedOption.length === 0) {
+                        // No option selected, clear the array
+                        selectedOptions = [];
+                    } else {
+                        var email = clickedOption.val();
+                        var ten = clickedOption.data('ten');
+
+                        // Check if the option is already selected
+                        var index = selectedOptions.indexOf(email);
+                        if (index === -1) {
+                            // Option not selected, add to the array
+                            selectedOptions.push(email);
+                        } else {
+                            // Option already selected, remove from the array
+                            selectedOptions.splice(index, 1);
+                        }
+                    }
+
+                    // Update the form fields or display the selected values
+                    // For example, you can display them in a div or textarea
+                    var displayText = selectedOptions.map(function (email) {
+                        var ten = selectkhSelect.find('option[value="' + email + '"]').data('ten');
+                        return 'Email: ' + email + ', Tên: ' + ten;
+                    }).join('\n');
+
+                    console.log(displayText);
+                    // Update the form fields or display the selected values
+                    // For example, you can display them in a div or textarea
+                    $('#selectedValues').text(displayText);
+                });
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+        selectkhSelect.change(function () {
+            var selectedEmail = $(this).val();
+            console.log('Đã chọn khách hàng có email: ' + selectedEmail);
+            emailselect = selectedEmail;
+           // Cập nhật giá trị vào các trường trong form
+            $('#tenKhachHang').val("");  // Cần thay đổi dựa vào dữ liệu trả về từ server
+            $('#email').val(selectedEmail);
+
+            // Vô hiệu hóa option "Chọn..."
+            $(this).find('option[value=""]').prop('disabled', true);
+        });
+        $('#createkh').click(function (e) {
+            e.preventDefault(); // Ngăn chặn sự kiện submit mặc định
+
+            // Sử dụng FormData để lấy dữ liệu từ form
+            var formData = new FormData($('#create-form')[0]);
+
+            // Lấy giá trị của select
+            var emailselect = $('#khachHangSelect').val();
+
+            // Thêm giá trị của select vào formData
+            formData.append('lstMail', emailselect);
+
+            // Ajax request
+            $.ajax({
+                url: '@Url.Action("Creates")',
+                type: 'POST',
+                processData: false,  // Ngăn chặn jQuery xử lý dữ liệu thành query string
+                contentType: false,  // Ngăn chặn jQuery thiết lập contentType
+                data: formData,
+                success: function (result) {
+                    console.log('result', result);
+                    if (result.success) {
+                        window.location.href = result.redirectUrl;
+                    } else {
+                        // Xử lý lỗi và hiển thị
+                        var errors = result.errors.join('<br/>');
+                        $('#errorDiv').html(errors);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    // Xử lý lỗi AJAX và hiển thị thông báo lỗi
+                    $('#errorDiv').html('Vui lòng nhập đúng đầu vào' );
+                }
+            });
+        });
+
+
+
+
+
+  
+      //  Ẩn tất cả các nhóm khi trang được load lên
+            $("#giaDonViGroup, #soTienGiamGroup, #dongGiaGroup").hide();
+
+            // Xử lý sự kiện khi select thay đổi giá trị
+            $("#selectOption").change(function () {
+                // Ẩn tất cả các nhóm trước khi hiển thị nhóm mới
+                $("#giaDonViGroup, #soTienGiamGroup, #dongGiaGroup").hide();
+
+                // Lấy giá trị của select
+                var selectedOption = $(this).val();
+
+                // Hiển thị nhóm tương ứng
+                if (selectedOption === "1") {
+                    $("#dongGiaGroup").show();
+                } else if (selectedOption === "2") {
+                    $("#soTienGiamGroup").show();
+                }
+                else if (selectedOption === "3") {
+                    $("#Mua1Tang1").show();
+                }
+            });
+        });
+
+    // Hoặc nếu bạn muốn đặt giá trị mặc định khi có sự kiện khác, bạn có thể sử dụng
+    // một hàm JavaScript và gọi nó từ sự kiện đó.
+    function setDefaultValue() {
+        document.getElementById('loaiGiamGia').value = '1'; // Chọn giảm giá sản phẩm
+    }
+
+        // Hoặc nếu bạn muốn đặt giá trị mặc định khi có sự kiện khác, bạn có thể sử dụng
+        // một hàm JavaScript và gọi nó từ sự kiện đó.
+        function setDefaultValue() {
+            document.getElementById('loaiGiamGia').value = '1'; // Chọn giảm giá sản phẩm
+        }
+
+                function generateRandomCode() {
+                    var randomCode = "KM" + Math.floor(Math.random() * 1000);
+                    document.getElementById("MaKhuyenMai").value = randomCode;
+                }
+    document.addEventListener('DOMContentLoaded', function () {
+        generateRandomCode();
+
+        // Bổ sung sự kiện ngăn chặn mặc định của form khi được gửi đi
+        document.getElementById('create-form').addEventListener( function (event) {
+            event.preventDefault();
+            updateDisplayValues();
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        generateRandomCode();
+
+        // Bổ sung sự kiện ngăn chặn mặc định của form khi được gửi đi
+        document.getElementById('create-form').addEventListener( function (event) {
+            event.preventDefault();
+            updateDisplayValues();
+        });
+    });
+
+    var formFields = document.querySelectorAll('#create-form input, #create-form select');
+    formFields.forEach(function (field) {
+        field.addEventListener('input', function () {
+            updateDisplayValues();
+        });
+    });
+    //
+    function formatPercentage(value) {
+        var floatValue = parseFloat(value);
+
+        if (!isNaN(floatValue)) {
+            var formattedValue = floatValue.toFixed(2) + '%';
+            return formattedValue;
+        }
+
+        return value;
+    }
+
+    function formatCurrency(value) {
+        var intValue = parseInt(value, 10);
+
+        if (!isNaN(intValue)) {
+            var formattedValue = intValue.toLocaleString();
+            formattedValue += ' đ';
+            return formattedValue;
+        }
+
+        return value;
+    }
+
+    function updateDisplayValues() {
+        var displayValuesTable = document.getElementById('display-values');
+        displayValuesTable.innerHTML = '';
+
+        formFields.forEach(function (field) {
+            var displayFields = ['MaKhuyenMai', 'Ghichu', 'NgayBatDau', 'NgayKetThuc', 'selectOption', 'luaChonGiamGia', 'PhanTramGiamGia', 'SoTienGiam', 'DongGia'];
+            if (displayFields.indexOf(field.getAttribute('name')) !== -1) {
+                var fieldValue = field.value;
+                var fieldName = field.getAttribute('name');
+
+                // Kiểm tra nếu trường là 'DongGia', 'SoTienGiam' hoặc 'PhanTramGiamGia' và giá trị không rỗng
+                if ((fieldName === 'DongGia' || fieldName === 'SoTienGiam') && fieldValue.trim() !== '') {
+                    fieldValue = formatCurrency(fieldValue);
+                } else if (fieldName === 'PhanTramGiamGia' && fieldValue.trim() !== '') {
+                    fieldValue = formatPercentage(fieldValue);
+                }
+
+                var newRow = document.createElement('tr');
+                newRow.innerHTML = `<td>${fieldName}</td><td>${fieldValue}</td>`;
+                displayValuesTable.appendChild(newRow);
+            }
+        });
+    }
+
+    //
+    function generateRandomCode() {
+        var randomCode = "KM" + Math.floor(Math.random() * 1000);
+        document.getElementById("MaKhuyenMai").value = randomCode;
+    }
+
+    function generateRandomCode() {
+        var randomCode = "KM" + Math.floor(Math.random() * 1000);
+        document.getElementById("MaKhuyenMai").value = randomCode;
+    }
+    document.addEventListener('DOMContentLoaded', function () {
+        // Lắng nghe sự kiện khi trường chọn giảm giá thay đổi
+        document.getElementById('luaChonGiamGia').addEventListener('change', function () {
+            // Lấy giá trị được chọn
+            var luaChon = this.value;
+
+            // Đặt giá trị của các trường trước đó về 0
+            document.getElementById('phanTramGroup').style.display = 'none';
+            document.getElementById('soTienGroup').style.display = 'none';
+            document.getElementById('dongGiaGroup').style.display = 'none';
+
+            document.getElementById('PhanTramGiamGia').value = 0;
+            document.getElementById('SoTienGiam').value = 0;
+            document.getElementById('DongGia').value = 0;
+
+            // Hiển thị trường tương ứng với lựa chọn
+            if (luaChon == 1) {
+                document.getElementById('phanTramGroup').style.display = 'block';
+            } else if (luaChon == 2) {
+                document.getElementById('soTienGroup').style.display = 'block';
+            } else if (luaChon == 3) {
+                document.getElementById('dongGiaGroup').style.display = 'block';
+            }
+        });
+
+        // Lắng nghe sự kiện khi giá trị trường phần trăm giảm giá thay đổi
+        document.getElementById('PhanTramGiamGia').addEventListener('input', function () {
+            // Nếu có giá trị mới, đặt giá trị của các trường trước đó về 0
+            document.getElementById('SoTienGiam').value = 0;
+            document.getElementById('DongGia').value = 0;
+        });
+
+        // Lắng nghe sự kiện khi giá trị trường số tiền giảm giá thay đổi
+        document.getElementById('SoTienGiam').addEventListener('input', function () {
+            // Nếu có giá trị mới, đặt giá trị của các trường trước đó về 0
+            document.getElementById('PhanTramGiamGia').value = 0;
+            document.getElementById('DongGia').value = 0;
+        });
+
+        // Lắng nghe sự kiện khi giá trị trường đơn giá thay đổi
+        document.getElementById('DongGia').addEventListener('input', function () {
+            // Nếu có giá trị mới, đặt giá trị của các trường trước đó về 0
+            document.getElementById('PhanTramGiamGia').value = 0;
+            document.getElementById('SoTienGiam').value = 0;
+        });
+    });
+    document.addEventListener("DOMContentLoaded", function () {
+        // Lấy phần tử input của số tiền giảm
+        var soTienGiamInput = document.getElementById('SoTienGiam');
+
+        // Thêm sự kiện lắng nghe khi người dùng nhập liệu
+        soTienGiamInput.addEventListener('input', function () {
+            // Kiểm tra và cắt độ dài nếu vượt quá 30 ký tự
+            if (soTienGiamInput.value.length > 15) {
+                soTienGiamInput.value = soTienGiamInput.value.slice(0, 30);
+            }
+        });
+    });
+    document.addEventListener("DOMContentLoaded", function () {
+        // Lấy phần tử input của số tiền giảm
+        var soTienGiamInput = document.getElementById('DongGia');
+
+        // Thêm sự kiện lắng nghe khi người dùng nhập liệu
+        soTienGiamInput.addEventListener('input', function () {
+            // Kiểm tra và cắt độ dài nếu vượt quá 30 ký tự
+            if (soTienGiamInput.value.length > 15) {
+                soTienGiamInput.value = soTienGiamInput.value.slice(0, 30);
+            }
+        });
+    });
+    function updateDisplayValues() {
+        var displayValuesTable = document.getElementById('display-values');
+        displayValuesTable.innerHTML = '';
+
+        formFields.forEach(function (field) {
+            var displayFields = ['MaKhuyenMai', 'NgayBatDau', 'NgayKetThuc', 'selectOption', 'luaChonGiamGia', 'PhanTramGiamGia', 'SoTienGiam', 'DongGia'];
+            if (displayFields.indexOf(field.getAttribute('name')) !== -1) {
+                var fieldValue = field.value.trim(); // Lấy giá trị và loại bỏ khoảng trắng
+
+                // Kiểm tra nếu giá trị không rỗng hoặc không phải là null
+                if (fieldValue !== null && fieldValue !== "") {
+                    var fieldName = field.getAttribute('name');
+
+                    if ((fieldName === 'DongGia' || fieldName === 'SoTienGiam') && fieldValue !== '') {
+                        fieldValue = formatCurrency(fieldValue);
+                    } else if (fieldName === 'PhanTramGiamGia' && fieldValue !== '') {
+                        fieldValue = formatPercentage(fieldValue);
+                    }
+
+                    var newRow = document.createElement('tr');
+                    newRow.innerHTML = `<td>${fieldName}</td><td>${fieldValue}</td>`;
+                    displayValuesTable.appendChild(newRow);
+                }
+            }
+        });
+    }
+    function updateDisplayValues() {
+        var displayValuesTable = document.getElementById('display-values');
+        displayValuesTable.innerHTML = '';
+
+        var atLeastOneFieldEntered = false;
+
+        formFields.forEach(function (field) {
+            var displayFields = ['MaKhuyenMai', 'Ghichu', 'NgayBatDau', 'NgayKetThuc', 'selectOption', 'luaChonGiamGia', 'PhanTramGiamGia', 'SoTienGiam', 'DongGia'];
+            if (displayFields.indexOf(field.getAttribute('name')) !== -1) {
+                var fieldValue = field.value.trim();
+
+                // Kiểm tra nếu giá trị không rỗng hoặc không phải là null
+                if (fieldValue !== null && fieldValue !== "") {
+                    atLeastOneFieldEntered = true; // Đánh dấu là đã nhập ít nhất một trường
+                    var fieldName = field.getAttribute('name');
+
+                    if ((fieldName === 'DongGia' || fieldName === 'SoTienGiam') && fieldValue !== '') {
+                        fieldValue = formatCurrency(fieldValue);
+                    } else if (fieldName === 'PhanTramGiamGia' && fieldValue !== '') {
+                        fieldValue = formatPercentage(fieldValue);
+                    }
+
+                    var newRow = document.createElement('tr');
+                    newRow.innerHTML = `<td>${fieldName}</td><td>${fieldValue}</td>`;
+                    displayValuesTable.appendChild(newRow);
+                }
+            }
+        });
+
+        // Kiểm tra xem có ít nhất một trường đã được nhập không
+        if (!atLeastOneFieldEntered) {
+            alert("Vui lòng nhập ít nhất một trong ba trường: Đồng giá, Phần trăm giảm giá, hoặc Số tiền giảm.");
+        }
+    }
+    
+ 
+            </script>
+
+
+     
+
+

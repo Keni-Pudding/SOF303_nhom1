@@ -1,0 +1,376 @@
+﻿<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Modernize Free</title>
+    <link rel="shortcut icon" type="image/png" href="~/admina/assets/images/logos/favicon.png" />
+    <link rel="stylesheet" href="~/admina/assets/css/styles.min.css" />
+    <link rel="stylesheet" href="~/css/Pagelist.css" />
+</head>
+
+<body>
+    <!--  Body Wrapper -->
+    <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+         data-sidebar-position="fixed" data-header-position="fixed">
+        <!-- Sidebar Start -->
+        <aside class="left-sidebar">
+            <!-- Sidebar scroll-->
+            <div>
+                <div class="brand-logo d-flex align-items-center justify-content-between">
+                    <a asp-area="Admin" asp-controller="QuanLyHoaDon" asp-action="Index" class="text-nowrap logo-img">
+                        <img src="~/dealsproduct/unnamed-removebg-preview.png" width="180" alt="" />
+                    </a>
+                    <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
+                        <i class="ti ti-x fs-8"></i>
+                    </div>
+                </div>
+                <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
+                    <ul id="sidebarnav">
+                        <li class="nav-small-cap">
+                            <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                            <span class="hide-menu">Home</span>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" asp-area="Admin" asp-controller="QuanLyHoaDon" asp-action="Index" >
+                                <span>
+                                    <i class="ti ti-receipt"></i>
+                                </span>
+                                <span class="hide-menu">Quản lý hóa đơn</span>
+                            </a>
+                        </li>
+
+
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" asp-area="Admin" asp-controller="Home" asp-action="Thongkels">
+                                <span>
+                                    <i class="ti ti-chart-bar"></i>
+                                </span>
+                                <span class="hide-menu">Thống kê</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" asp-area="Admin" asp-controller="QuanLySpBc" asp-action="AllSpindex">
+                                <span>
+                                    <i class="ti ti-layout-dashboard"></i>
+                                </span>
+                                <span class="hide-menu">Sản phẩm bán chạy</span>
+                            </a>
+                        </li>
+
+
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" asp-controller="DanhMuc" asp-action="Index">
+                                <span>
+                                    <i class="ti ti-brand-producthunt"></i>
+                                </span>
+                                <span class="hide-menu">Quản lý danh mục</span>
+                            </a>
+                        </li>
+
+                        <li class="sidebar-item dropdown">
+                            <a class="sidebar-link dropdown-toggle" id="quanLyDropdown">
+                                <span>
+                                    <i class="ti ti-brand-producthunt"></i>
+                                </span>
+                                <span class="hide-menu">Quản lý</span>
+                            </a>
+                            <div class="dropdown-menu" id="quanLyDropdownMenu">
+                                <a class="dropdown-item" asp-controller="SanPham" asp-action="Index">Quản lý sản phẩm</a>
+                                <a class="dropdown-item" asp-controller="NSX" asp-action="Index">Quản lý nsx</a>
+                                <a class="dropdown-item" asp-controller="Mau" asp-action="Index">Quản lý màu sắc</a>
+                                <a class="dropdown-item" asp-controller="Size" asp-action="Index">Quản lý size</a>
+                                <a class="dropdown-item" asp-controller="ChatLieu" asp-action="Index">Quản lý chất liệu</a>
+                            </div>
+                        </li>
+                        @if (User.IsInRole("Quản lý"))
+                        {
+                            
+                           
+
+                            <li class="nav-small-cap">
+                                <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                                <span class="hide-menu">Quản lý </span>
+                            </li>
+
+                            <li class="sidebar-item">
+                                <a class="sidebar-link" asp-controller="NhanVien" asp-action="Index">
+
+                                    <span>
+                                        <i class="ti ti-brand-producthunt"></i>
+                                    </span>
+                                    <span class="hide-menu">
+                                        Quản lý nhân viên
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a class="sidebar-link" asp-controller="KhachHang" asp-action="Index">
+
+                                    <span>
+                                        <i class="ti ti-brand-producthunt"></i>
+                                    </span>
+                                    <span class="hide-menu">
+                                        Quản lý Khách hàng
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a class="sidebar-link" asp-area="Admin" asp-controller="Voucher" asp-action="Index">
+                                    <span>
+                                        <i class="ti ti-ticket"></i>
+                                    </span>
+                                    <span class="hide-menu">Quản lý voucher</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a class="sidebar-link" asp-area="Admin" asp-controller="KhuyenMai" asp-action="Index">
+                                    <span>
+                                        <i class="ti ti-discount-2"></i>
+                                    </span>
+                                    <span class="hide-menu">Quản lý Khuyến mãi</span>
+                                </a>
+                            </li>   <li class="sidebar-item">
+                                <a class="sidebar-link" asp-area="Admin" asp-controller="QuanLyDanhGiaSanPham" asp-action="Index">
+                                    <span>
+                                        <i class="ti ti-brand-producthunt"></i>
+                                    </span>
+                                    <span class="hide-menu">Quản lý đánh giá</span>
+                                </a>
+                            </li>
+                            <li class="nav-small-cap">
+                                <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                                <span class="hide-menu"> </span>
+                            </li>
+                            <li class="nav-small-cap">
+                                <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                                <span class="hide-menu"> </span>
+                            </li>
+                        }
+                    </ul>
+                </nav>
+            </div>
+            <!-- End Sidebar scroll-->
+        </aside>
+        <!--  Sidebar End -->
+        <!--  Main wrapper -->
+        <div class="body-wrapper">
+            <!--  Header Start -->
+            <header class="app-header">
+                <nav class="navbar navbar-expand-lg navbar-light">
+                    <ul class="navbar-nav">
+                        <li class="nav-item d-block d-xl-none">
+                            <a class="nav-link sidebartoggler nav-icon-hover" id="headerCollapse" href="javascript:void(0)">
+                                <i class="ti ti-menu-2"></i>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
+                        <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
+                            <a asp-controller="Home" asp-action="UserDetails" class="btn btn-primary">Xin chào,@User.Identity.Name!</a>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown"
+                                   aria-expanded="false">
+                                    <img src="~/admina/assets/images/profile/user-1.jpg" alt="" width="35" height="35" class="rounded-circle">
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
+                                    <div class="message-body">
+                                        <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
+
+                                            <div class="container">  <a asp-controller="Home" asp-action="UserDetails">Thông tin cá nhân</a></div>
+                                        </a>
+
+                                        <a class="btn btn-outline-primary mx-3 mt-2 d-block" asp-controller="Home" asp-action="Logouts">Logout</a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </header>
+            <!--  Header End -->
+            @RenderBody()
+
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+    @*///////////////////////////////////////////////////////////////////////*@
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    @*<script src="~/lib/jquery/dist/jquery.js"></script>*@
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+
+
+    @*///////////////////////////*@
+    <script src="~/admina/assets/libs/jquery/dist/jquery.min.js"></script>
+    <script src="~/admina/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/admina/assets/js/sidebarmenu.js"></script>
+    <script src="~/admina/assets/js/app.min.js"></script>
+    <script src="~/admina/assets/libs/apexcharts/dist/apexcharts.min.js"></script>
+    <script src="~/admina/assets/libs/simplebar/dist/simplebar.js"></script>
+    <script src="~/admina/assets/js/dashboard.js"></script>
+
+
+    <script>
+        $(document).ready(function () {
+            $('.dropdown-toggle').click(function () {
+                $(this).next('.dropdown-menu').slideToggle(200);
+            });
+        });
+        //$(document).ready(function () {
+        //    $('.dropdown-toggle').click(function () {
+        //        var dropdownMenu = $(this).next('.dropdown-menu');
+        //        dropdownMenu.slideToggle(200);
+
+        //        // Đẩy nội dung bên dưới xuống
+        //        var height = dropdownMenu.height();
+        //        $(this).closest('.dropdown').css('margin-bottom', height);
+        //    });
+        //});
+        $(document).ready(function () {
+            $("#GiaNhap, #GiaBan, #GiaNiemYet").on("input", function () {
+                // Xóa mọi ký tự không phải số từ giá trị nhập vào
+                $(this).val(function (index, value) {
+                    return value.replace(/\D/g, '');
+                });
+
+                // Kiểm tra giá trị và hiển thị thông báo lỗi nếu cần
+                checkGiaNhapBanNiemYet();
+            });
+
+            function checkGiaNhapBanNiemYet() {
+                var giaNhap = parseInt($("#GiaNhap").val());
+                var giaBan = parseInt($("#GiaBan").val());
+                var giaNiemYet = parseInt($("#GiaNiemYet").val());
+
+                var errorSpanNhap = $("#giaNhapError");
+                var errorSpanBan = $("#giaBanError");
+                var errorSpanNiemYet = $("#giaNiemYetError");
+
+                if (isNaN(giaNhap) || isNaN(giaBan) || isNaN(giaNiemYet)) {
+                    return;
+                }
+
+                if (giaNhap >= giaBan) {
+                    errorSpanNhap.text('Giá nhập phải nhỏ hơn giá bán.');
+                } else {
+                    errorSpanNhap.text('');
+                }
+
+                if (giaBan <= giaNhap) {
+                    errorSpanBan.text('Giá bán phải lớn hơn giá nhập.');
+                } else {
+                    errorSpanBan.text('');
+                }
+
+                if (giaNiemYet > giaBan) {
+                    errorSpanNiemYet.text('Giá niêm yết phải nhỏ hơn hoặc bằng giá bán.');
+                } else {
+                    errorSpanNiemYet.text('');
+                }
+            }
+        });
+
+        ////////////////////
+        // Thêm sự kiện click cho liên kết dropdown "Quản lý"
+        document.getElementById('quanLyDropdownLink').addEventListener('click', function () {
+            // Chuyển đổi tính hiển thị của menu dropdown
+            document.getElementById('quanLyDropdownMenu').classList.toggle('show');
+        });
+
+        // Đóng menu dropdown nếu người dùng click bên ngoài nó
+        window.onclick = function (event) {
+            if (!event.target.matches('#quanLyDropdownLink')) {
+                var dropdowns = document.getElementsByClassName('dropdown-menu');
+                for (var i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .sidebar {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar-link {
+            text-decoration: none;
+            color: black;
+            display: block;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+            .sidebar-link:hover {
+                background-color: #f0f0f0;
+            }
+
+
+
+        .dropdown-item {
+            /*display: block;*/
+            /* padding: 10px;*/
+            padding-right: 70px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            text-decoration: none;
+            color: black;
+        }
+
+            .dropdown-item:hover {
+                background-color: #f0f0f0;
+            }
+
+        a {
+            text-decoration: none;
+        }
+
+        a:hover {
+                text-decoration: none;
+            }
+    </style>
+
+    <style>
+        .sidebar {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar-item {
+            margin-bottom: 10px;
+        }
+
+        .sidebar-link {
+            text-decoration: none;
+            color: black;
+            display: block;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+            .sidebar-link:hover {
+                background-color: #f0f0f0;
+            }
+
+
+
+       
+    </style>
+</body>
+</html>
