@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CTN4_View", "CTN4_View\CTN4
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CTN4_Serv", "CTN4_Serv\CTN4_Serv.csproj", "{106DB6FF-138C-4170-AE87-DD27AFAB0791}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestUnit_SOF304", "TestUnit_SOF304\TestUnit_SOF304.csproj", "{FE96F1BA-BFE9-4DCC-9C12-8FE6933F8989}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{106DB6FF-138C-4170-AE87-DD27AFAB0791}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{106DB6FF-138C-4170-AE87-DD27AFAB0791}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{106DB6FF-138C-4170-AE87-DD27AFAB0791}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE96F1BA-BFE9-4DCC-9C12-8FE6933F8989}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE96F1BA-BFE9-4DCC-9C12-8FE6933F8989}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE96F1BA-BFE9-4DCC-9C12-8FE6933F8989}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE96F1BA-BFE9-4DCC-9C12-8FE6933F8989}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
