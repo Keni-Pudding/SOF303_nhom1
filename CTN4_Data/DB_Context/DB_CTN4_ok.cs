@@ -43,7 +43,7 @@ namespace CTN4_Data.DB_Context
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Data Source=MSI;Initial Catalog=CTN4a;User ID=sa;Password=thieu12345");
+            optionsBuilder.UseSqlServer("Server=codecopypaste\\SQLEXPRESS;Database=DATN_SOF304;Trusted_Connection=True;TrustServerCertificate=True;");
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
