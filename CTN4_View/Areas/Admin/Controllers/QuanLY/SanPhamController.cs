@@ -115,7 +115,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
             return View("Index", pagedList);
         }
         // GET: SanPhamController/Details/5
-        public ActionResult Details(Guid id)
+        public bool Details(Guid id)
         {
             var lisanh = _anhService.GetAll();
             var a = _sanPhamService.GetAll().FirstOrDefault(c => c.Id == id);
@@ -128,7 +128,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
                 AhList = lisanh.ToList(),
 
             };
-            return View(view);
+            return true;
         }
 
         // GET: SanPhamController/Create
@@ -153,7 +153,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         // POST: SanPhamController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(SanPhamView p, [Bind] IFormFile imageFile)
+        public bool Create(SanPhamView p, [Bind] IFormFile imageFile)
         {
             const int kichThuocToiDa = 2 * 1024 * 1024; // 2MB
             if (imageFile != null && imageFile.Length > 0) // Không null và không trống
@@ -163,7 +163,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
                 {
                     var thongbaoAnh = "Kích thước ảnh vượt quá 2MB";
                     TempData["Notification"] = thongbaoAnh;
-                    return RedirectToAction("Create", new { id = p.Id });
+                    return false;
                 }
                 var allowedExtensions = new[] { ".jpg", ".png", ".jpeg", ".tiff", ".webp", ".gif" };
                 var fileExtension = Path.GetExtension(imageFile.FileName).ToLower();
@@ -172,7 +172,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
                 {
                     var thongbaoAnh = "Định dạng ảnh không được chấp nhận. Chỉ chấp nhận các định dạng: " + string.Join(", ", allowedExtensions);
                     TempData["Notification"] = thongbaoAnh;
-                    return RedirectToAction("Create", new { id = p.Id });
+                    return false;
                 }
                 //Trỏ tới thư mục wwwroot để lát nữa thực hiện việc Copy sang
                 var path = Path.Combine(
@@ -191,7 +191,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
             {
                 var thongbaoAnh = "Hay them anh";
                 TempData["Notification"] = thongbaoAnh;
-                return RedirectToAction("Create", new { thongbaoAnh });
+                return false;
             }
             if (System.IO.Path.GetExtension(imageFile.FileName) == ".jpg" ||
             System.IO.Path.GetExtension(imageFile.FileName) == ".png" ||
@@ -221,7 +221,7 @@ namespace CTN4_View_Admin.Controllers.QuanLY
                 if (_sanPhamService.Them(b)) // Nếu thêm thành công
                 {
 
-                    return RedirectToAction("Index");
+                    return true;
                 }
                 var viewModel = new SanPhamView()
                 {
@@ -236,13 +236,14 @@ namespace CTN4_View_Admin.Controllers.QuanLY
                         Text = s.TenChatLieu
                     }).ToList(),
                 };
-                return View(viewModel);
+                return false;
             }
             else
             {
                 var Loi = "Không đúng định dạng ảnh";
                 TempData["Loi"] = Loi;
-                return RedirectToAction("Index", new { Loi });
+                
+                return false;
             }
         }
         // GET: SanPhamController/Edit/5
@@ -284,17 +285,17 @@ namespace CTN4_View_Admin.Controllers.QuanLY
         // POST: SanPhamController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(SanPhamView c, [Bind] IFormFile imageFile, string anhdaidiencheck)
+        public bool Edit2(SanPhamView c, [Bind] IFormFile imageFile, string anhdaidiencheck)
         {
             const int kichThuocToiDa = 2 * 1024 * 1024; // 2MB
             if (imageFile != null && imageFile.Length > 0) // Không null và không trống
             {
-                 // Kiểm tra định dạng của ảnh
+                // Kiểm tra định dạng của ảnh
                 if (imageFile.Length > kichThuocToiDa)
                 {
                     var thongbaoAnh = "Kích thước ảnh vượt quá 2MB";
                     TempData["Notification"] = thongbaoAnh;
-                    return RedirectToAction("Edit", new { id = c.Id });
+                    return false;
                 }
                 var allowedExtensions = new[] { ".jpg", ".png", ".jpeg", ".tiff", ".webp", ".gif" };
                 var fileExtension = Path.GetExtension(imageFile.FileName).ToLower();
@@ -303,10 +304,10 @@ namespace CTN4_View_Admin.Controllers.QuanLY
                 {
                     var thongbaoAnh = "Định dạng ảnh không được chấp nhận. Chỉ chấp nhận các định dạng: " + string.Join(", ", allowedExtensions);
                     TempData["Notification"] = thongbaoAnh;
-                    return RedirectToAction("Edit", new { id = c.Id });
+                    return false;
                 }
-               
-                
+
+
                 //Trỏ tới thư mục wwwroot để lát nữa thực hiện việc Copy sang
                 var path = Path.Combine(
                     Directory.GetCurrentDirectory(), "wwwroot", "image", imageFile.FileName);
@@ -343,13 +344,12 @@ namespace CTN4_View_Admin.Controllers.QuanLY
             };
             if (_sanPhamService.Sua(p))
             {
-                return RedirectToAction("Index");
+                return true;
 
             }
 
-            return RedirectToAction("Edit", p.Id);
+            return false;
         }
-
 
         // Hàm kiểm tra và xử lý giá trị TenSanPham
 

@@ -30,7 +30,7 @@ namespace CTN4_Serv.ViewModel
         [Required(ErrorMessage = " không được để trống")]
         [DataType(DataType.Text)]
         [RegularExpression(@"^[a-zA-Z0-9\sáàảãạăắằẳẵặâấầẩẫậéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữựýỳỷỹỵđĐ]+$", ErrorMessage = "Chỉ được nhập chữ và số")]
-        [MaxLength(50, ErrorMessage = "Tên sản phẩm không được quá 50 ký tự")]
+        [StringLength(50, ErrorMessage = "Tên sản phẩm không được quá 50 ký tự")]
         public string TenSanPham { get; set; }
 
         public string AnhDaiDien { get; set; }

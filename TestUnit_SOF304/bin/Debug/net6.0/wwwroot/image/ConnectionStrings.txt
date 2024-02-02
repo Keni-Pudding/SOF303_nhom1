@@ -1,0 +1,1 @@
+Server=codecopypaste\\SQLEXPRESS;Database=DATN;Trusted_Connection=True;TrustServerCertificate=True;
