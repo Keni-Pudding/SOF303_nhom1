@@ -17,3 +17,23 @@ C:\Users\Code Toi Sang\Desktop\CTN4-master\CTN4-master\CTN4_Serv\obj\Debug\net6.
 C:\Users\Code Toi Sang\Desktop\CTN4-master\CTN4-master\CTN4_Serv\obj\Debug\net6.0\CTN4_Serv.pdb
 C:\Users\Code Toi Sang\Desktop\CTN4-master\CTN4-master\CTN4_Serv\obj\Debug\net6.0\CTN4_Serv.genruntimeconfig.cache
 C:\Users\Code Toi Sang\Desktop\CTN4-master\CTN4-master\CTN4_Serv\obj\Debug\net6.0\ref\CTN4_Serv.dll
+F:\KiemthuSOF304\DuAnTest\Test_Unit_SOF304\CTN4_Serv\bin\Debug\net6.0\testhost.exe
+F:\KiemthuSOF304\DuAnTest\Test_Unit_SOF304\CTN4_Serv\bin\Debug\net6.0\testhost.dll
+F:\KiemthuSOF304\DuAnTest\Test_Unit_SOF304\CTN4_Serv\bin\Debug\net6.0\CTN4_Serv.deps.json
+F:\KiemthuSOF304\DuAnTest\Test_Unit_SOF304\CTN4_Serv\bin\Debug\net6.0\CTN4_Serv.runtimeconfig.json
+F:\KiemthuSOF304\DuAnTest\Test_Unit_SOF304\CTN4_Serv\bin\Debug\net6.0\CTN4_Serv.dll
+F:\KiemthuSOF304\DuAnTest\Test_Unit_SOF304\CTN4_Serv\bin\Debug\net6.0\CTN4_Serv.pdb
+F:\KiemthuSOF304\DuAnTest\Test_Unit_SOF304\CTN4_Serv\bin\Debug\net6.0\CTN4_Data.dll
+F:\KiemthuSOF304\DuAnTest\Test_Unit_SOF304\CTN4_Serv\bin\Debug\net6.0\CTN4_Data.pdb
+F:\KiemthuSOF304\DuAnTest\Test_Unit_SOF304\CTN4_Serv\obj\Debug\net6.0\CTN4_Serv.csproj.AssemblyReference.cache
+F:\KiemthuSOF304\DuAnTest\Test_Unit_SOF304\CTN4_Serv\obj\Debug\net6.0\CTN4_Serv.GeneratedMSBuildEditorConfig.editorconfig
+F:\KiemthuSOF304\DuAnTest\Test_Unit_SOF304\CTN4_Serv\obj\Debug\net6.0\CTN4_Serv.AssemblyInfoInputs.cache
+F:\KiemthuSOF304\DuAnTest\Test_Unit_SOF304\CTN4_Serv\obj\Debug\net6.0\CTN4_Serv.AssemblyInfo.cs
+F:\KiemthuSOF304\DuAnTest\Test_Unit_SOF304\CTN4_Serv\obj\Debug\net6.0\CTN4_Serv.csproj.CoreCompileInputs.cache
+F:\KiemthuSOF304\DuAnTest\Test_Unit_SOF304\CTN4_Serv\obj\Debug\net6.0\CTN4_Serv.sourcelink.json
+F:\KiemthuSOF304\DuAnTest\Test_Unit_SOF304\CTN4_Serv\obj\Debug\net6.0\CTN4_Serv.csproj.CopyComplete
+F:\KiemthuSOF304\DuAnTest\Test_Unit_SOF304\CTN4_Serv\obj\Debug\net6.0\CTN4_Serv.dll
+F:\KiemthuSOF304\DuAnTest\Test_Unit_SOF304\CTN4_Serv\obj\Debug\net6.0\refint\CTN4_Serv.dll
+F:\KiemthuSOF304\DuAnTest\Test_Unit_SOF304\CTN4_Serv\obj\Debug\net6.0\CTN4_Serv.pdb
+F:\KiemthuSOF304\DuAnTest\Test_Unit_SOF304\CTN4_Serv\obj\Debug\net6.0\CTN4_Serv.genruntimeconfig.cache
+F:\KiemthuSOF304\DuAnTest\Test_Unit_SOF304\CTN4_Serv\obj\Debug\net6.0\ref\CTN4_Serv.dll

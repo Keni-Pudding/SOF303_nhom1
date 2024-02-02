@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CTN4_Data")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f3fc6100f3f74e3d41362623dbdc41291db0176b")]
 [assembly: System.Reflection.AssemblyProductAttribute("CTN4_Data")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CTN4_Data")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
