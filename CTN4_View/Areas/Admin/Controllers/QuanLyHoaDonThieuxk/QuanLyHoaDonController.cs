@@ -2007,7 +2007,7 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
         #endregion
 
         #region mua hang tai quay
-        static bool IsValidGmail(string email)
+        public bool IsValidGmail(string email)
         {
             // Định nghĩa một biểu thức chính quy cho địa chỉ Gmail
             string pattern = @"^[a-zA-Z0-9._%+-]+@gmail\.com$";
@@ -2221,9 +2221,6 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
         }
         public IActionResult TimKiemSp(string Ten)
         {
-            var nvnew = SessionServices.NhanVienSS(HttpContext.Session, "ACA");
-            if (nvnew.Count() != 0)
-            {
                 if (Ten==null)
                 {
                     var message = "Hãy điền tên sản phẩm muốn tìm";
@@ -2243,17 +2240,10 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                     KhuyenMaiSanPhams = khuyenMaiSp,
                 };
                 return View("sanphammua",view);
-            }
-            else
-            {
-                return RedirectToAction("DangNhap", "Home");
-            }
+            
         }
         public IActionResult TimKiemSp2(int BatDau,int KetThuc)
         {
-            var nvnew = SessionServices.NhanVienSS(HttpContext.Session, "ACA");
-            if (nvnew.Count() != 0)
-            {
                 if (KetThuc == 0)
                 {
                     var message = "Hãy điền số tiên kết thúc để có thể lọc";
@@ -2277,11 +2267,6 @@ namespace CTN4_View.Areas.Admin.Controllers.QuanLyHoaDonThieuxk
                     KhuyenMaiSanPhams = khuyenMaiSp,
                 };
                 return View("sanphammua", view);
-            }
-            else
-            {
-                return RedirectToAction("DangNhap", "Home");
-            }
         }
         public IActionResult chonMau(Guid IdSanPham, Guid IdMau)
         {
