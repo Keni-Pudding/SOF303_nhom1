@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CTN4_Serv\CTN4_Serv.csproj" />
+    <ProjectReference Include="..\CTN4_View\CTN4_View.csproj" />
   </ItemGroup>
 
 </Project>

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CTN4_Serv")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9096b693ee139cf0f93d120a6848936be31475de")]
 [assembly: System.Reflection.AssemblyProductAttribute("CTN4_Serv")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CTN4_Serv")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -8627,23 +8627,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Code Toi Sang\\.nuget\\packages\\": {},
+    "C:\\Users\\Huong\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Code Toi Sang\\Desktop\\CTN4-master\\CTN4-master\\CTN4_Serv\\CTN4_Serv.csproj",
+      "projectUniqueName": "C:\\Users\\Huong\\source\\repos\\SOF304_nhom1\\CTN4_Serv\\CTN4_Serv.csproj",
       "projectName": "CTN4_Serv",
-      "projectPath": "C:\\Users\\Code Toi Sang\\Desktop\\CTN4-master\\CTN4-master\\CTN4_Serv\\CTN4_Serv.csproj",
-      "packagesPath": "C:\\Users\\Code Toi Sang\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Code Toi Sang\\Desktop\\CTN4-master\\CTN4-master\\CTN4_Serv\\obj\\",
+      "projectPath": "C:\\Users\\Huong\\source\\repos\\SOF304_nhom1\\CTN4_Serv\\CTN4_Serv.csproj",
+      "packagesPath": "C:\\Users\\Huong\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Huong\\source\\repos\\SOF304_nhom1\\CTN4_Serv\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\Code Toi Sang\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Huong\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -8652,14 +8652,15 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Users\\Code Toi Sang\\Desktop\\CTN4-master\\CTN4-master\\CTN4_Data\\CTN4_Data.csproj": {
-              "projectPath": "C:\\Users\\Code Toi Sang\\Desktop\\CTN4-master\\CTN4-master\\CTN4_Data\\CTN4_Data.csproj"
+            "C:\\Users\\Huong\\source\\repos\\SOF304_nhom1\\CTN4_Data\\CTN4_Data.csproj": {
+              "projectPath": "C:\\Users\\Huong\\source\\repos\\SOF304_nhom1\\CTN4_Data\\CTN4_Data.csproj"
             }
           }
         }
@@ -8721,7 +8722,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101\\RuntimeIdentifierGraph.json"
       }
     }
   }
