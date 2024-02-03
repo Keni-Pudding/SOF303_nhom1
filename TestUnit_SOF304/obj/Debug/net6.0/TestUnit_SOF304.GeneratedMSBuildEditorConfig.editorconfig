@@ -8,4 +8,6 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = TestUnit_SOF304
-build_property.ProjectDir = C:\Users\Code Toi Sang\Desktop\CTN4-master\CTN4-master\TestUnit_SOF304\
+build_property.ProjectDir = C:\Users\Admin\Desktop\KiemthuHight\SOF304_nhom1\TestUnit_SOF304\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 

@@ -43,7 +43,7 @@ namespace CTN4_Data.DB_Context
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=codecopypaste\\SQLEXPRESS;Database=DATN_SOF304;Trusted_Connection=True;TrustServerCertificate=True;");
+            optionsBuilder.UseSqlServer("Server=ADMIN\\SQLEXPRESS;Database=DATN_SOF304;Trusted_Connection=True;TrustServerCertificate=True;");
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -16,6 +16,7 @@ using System.Text.RegularExpressions;
 using CTN4_Data.DB_Context;
 using DocumentFormat.OpenXml.Spreadsheet;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.DotNet.Scaffolding.Shared.Messaging;
 
 namespace CTN4_View.Controllers
 {
@@ -202,23 +203,6 @@ namespace CTN4_View.Controllers
                 ViewBag.Message = "Định dạng email không hợp lệ";
                 return View("DangKy", a);
             }
-            var checkma = _khachHangService.GetAll().FirstOrDefault(c => c.TenDangNhap == a.TenDangNhap);
-            if (checkma !=null ) {
-                ViewBag.Message = "Tên đăng nhập đã sử dụng";
-                return View("DangKy", a);
-            }
-            var checksdt = _khachHangService.GetAll().FirstOrDefault(c => c.SDT == a.SDT);
-            if (checksdt != null)
-            {
-                ViewBag.Message = "Số điện thoại đã sử dụng";
-                return View("DangKy", a);
-            }
-            var checkemail = _khachHangService.GetAll().FirstOrDefault(c => c.Email == a.Email);
-            if (checkemail != null)
-            {
-                ViewBag.Message = "Email đã sử dụng";
-                return View("DangKy", a);
-            }
             // Kiểm tra độ dài và định dạng số điện thoại
             if (!IsValidPhoneNumber(a.SDT))
             {
@@ -234,7 +218,24 @@ namespace CTN4_View.Controllers
                 ViewBag.Message = "Dữ liệu không được vượt quá 100 ký tự";
                 return View("DangKy", a);
             }
-
+            var checkma = _khachHangService.GetAll().FirstOrDefault(c => c.TenDangNhap == a.TenDangNhap);
+            if (checkma != null) {
+                ViewBag.Message = "Tên đăng nhập đã sử dụng";
+                return View("DangKy", a);
+            }
+            var checksdt = _khachHangService.GetAll().FirstOrDefault(c => c.SDT == a.SDT);
+            if (checksdt != null)
+            {
+                ViewBag.Message = "Số điện thoại đã sử dụng";
+                return View("DangKy", a);
+            }
+            var checkemail = _khachHangService.GetAll().FirstOrDefault(c => c.Email == a.Email);
+            if (checkemail != null)
+            {
+                ViewBag.Message = "Email đã sử dụng";
+                return View("DangKy", a);
+            }
+            
             if (a == null)
             {
                 return RedirectToAction(nameof(DangKy));

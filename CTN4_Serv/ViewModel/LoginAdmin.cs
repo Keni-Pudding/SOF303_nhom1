@@ -10,6 +10,7 @@ namespace CTN4_Serv.ViewModel
     public class LoginAdmin
     {
         [Required(ErrorMessage = "Username is required")]
+        [RegularExpression("^[a-zA-Z0-9]{8,31}$", ErrorMessage = "Vui lòng nhập đúng đầu vào")]
         public string User { get; set; }
         [Required(ErrorMessage = "Tên đăng nhập không được bỏ trống")]
         [RegularExpression("^[a-zA-Z0-9]{8,31}$", ErrorMessage = "Vui lòng nhập đúng đầu vào")]
