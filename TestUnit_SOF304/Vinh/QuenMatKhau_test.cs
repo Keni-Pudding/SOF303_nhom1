@@ -24,6 +24,8 @@ using Microsoft.Extensions.Options;
 using MailKit.Security;
 using MimeKit;
 using System.Net.Mail;
+using DocumentFormat.OpenXml.Wordprocessing;
+using DocumentFormat.OpenXml.Spreadsheet;
 
 namespace TestUnit_SOF304.Vinh
 {
@@ -125,6 +127,183 @@ namespace TestUnit_SOF304.Vinh
             // Assert
             Assert.IsNotNull(attribute);
             Assert.AreEqual("Xác nhận mật khẩu mới không khớp", attribute.ErrorMessage);
+        }
+        [Test, Order(5)]
+        public async Task QuenMks_KhongDeTrong()
+        {
+            // Arrange
+            var mailRequest = new MailRequest
+            {
+                Tendangnhap = "",
+                ToEmail = "",
+                Subject = "",
+                Body = "",
+                attachmentPaths = new List<string> { "" }
+            };
+            var khachHangServiceMock = new Mock<IKhachHangService>();
+            var emailServiceMock = new Mock<IEmailService>();
+            var controller = new HomeController(
+                Mock.Of<ILogger<HomeController>>(),
+                Mock.Of<IConfiguration>(),
+                Mock.Of<ITokenService>(),
+                Mock.Of<ILoginService>(),
+                Mock.Of<ICurrentUser>(),
+                khachHangServiceMock.Object, // Sử dụng mock của IKhachHangService
+                Mock.Of<ISanPhamService>(),
+                Mock.Of<IHttpClientFactory>(),
+                Mock.Of<IDiaChiNhanHangService>(),
+                Mock.Of<IGiamGiaService>(),
+                emailServiceMock.Object, // Sử dụng mock của IEmailService
+                Mock.Of<IGioHangService>()
+                );
+
+            // Act
+            var result = await controller.QuenMks(mailRequest) as ViewResult;
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.Equals("QuenMk", result.ViewName); // Assuming "QuenMk" is the name of the view returned
+            Assert.Equals("Không được để trống", result.ViewData["Message"]);
+        }
+        [Test, Order(6)]
+        public async Task QuenMks_KhongDungTKMK()
+        {
+            // Arrange
+            var mailRequest = new MailRequest
+            {
+                Tendangnhap = "abc",
+                ToEmail = "abc",
+            };
+            var khachHangServiceMock = new Mock<IKhachHangService>();
+            var emailServiceMock = new Mock<IEmailService>();
+            var controller = new HomeController(
+                Mock.Of<ILogger<HomeController>>(),
+                Mock.Of<IConfiguration>(),
+                Mock.Of<ITokenService>(),
+                Mock.Of<ILoginService>(),
+                Mock.Of<ICurrentUser>(),
+                khachHangServiceMock.Object, // Sử dụng mock của IKhachHangService
+                Mock.Of<ISanPhamService>(),
+                Mock.Of<IHttpClientFactory>(),
+                Mock.Of<IDiaChiNhanHangService>(),
+                Mock.Of<IGiamGiaService>(),
+                emailServiceMock.Object, // Sử dụng mock của IEmailService
+                Mock.Of<IGioHangService>()
+                );
+
+            // Act
+            var result = await controller.QuenMks(mailRequest) as ViewResult;
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.Equals("QuenMk", result.ViewName); // Assuming "QuenMk" is the name of the view returned
+            Assert.Equals("Tên đăng nhập hoặc email không đúng", result.ViewData["Message"]);
+        }
+        [Test, Order(7)]
+        public async Task QuenMks_Char()
+        {
+            // Arrange
+            var mailRequest = new MailRequest
+            {
+                Tendangnhap = "1",
+                ToEmail = "1",
+            };
+            var khachHangServiceMock = new Mock<IKhachHangService>();
+            var emailServiceMock = new Mock<IEmailService>();
+            var controller = new HomeController(
+                Mock.Of<ILogger<HomeController>>(),
+                Mock.Of<IConfiguration>(),
+                Mock.Of<ITokenService>(),
+                Mock.Of<ILoginService>(),
+                Mock.Of<ICurrentUser>(),
+                khachHangServiceMock.Object, // Sử dụng mock của IKhachHangService
+                Mock.Of<ISanPhamService>(),
+                Mock.Of<IHttpClientFactory>(),
+                Mock.Of<IDiaChiNhanHangService>(),
+                Mock.Of<IGiamGiaService>(),
+                emailServiceMock.Object, // Sử dụng mock của IEmailService
+                Mock.Of<IGioHangService>()
+                );
+
+            // Act
+            var result = await controller.QuenMks(mailRequest) as ViewResult;
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.Equals("QuenMk", result.ViewName); // Assuming "QuenMk" is the name of the view returned
+            Assert.Equals("Tên đăng nhập hoặc email không đúng", result.ViewData["Message"]);
+        }
+        [Test, Order(8)]
+        public async Task QuenMks_TenDangNhap()
+        {
+            // Arrange
+            var userLogin = "abc";
+            var mailRequest = new MailRequest
+            {
+                Tendangnhap = userLogin,
+                ToEmail = "abc"
+            };
+            var khachHangServiceMock = new Mock<IKhachHangService>();
+            var emailServiceMock = new Mock<IEmailService>();
+            var expectedKhachHang = new KhachHang { TenDangNhap = userLogin, Email = "abc" };
+            khachHangServiceMock.Setup(mock => mock.GetAll()).Returns(new List<KhachHang> { expectedKhachHang });
+            var controller = new HomeController(
+                Mock.Of<ILogger<HomeController>>(),
+                Mock.Of<IConfiguration>(),
+                Mock.Of<ITokenService>(),
+                Mock.Of<ILoginService>(),
+                Mock.Of<ICurrentUser>(),
+                khachHangServiceMock.Object, // Sử dụng mock của IKhachHangService
+                Mock.Of<ISanPhamService>(),
+                Mock.Of<IHttpClientFactory>(),
+                Mock.Of<IDiaChiNhanHangService>(),
+                Mock.Of<IGiamGiaService>(),
+                emailServiceMock.Object, // Sử dụng mock của IEmailService
+                Mock.Of<IGioHangService>()
+                );
+
+            // Act
+            await controller.QuenMks(mailRequest);
+
+            // Assert
+            khachHangServiceMock.Verify(mock => mock.GetAll(), Times.Once); // Đảm bảo phương thức GetAll() được gọi một lần
+            khachHangServiceMock.Verify(mock => mock.GetAll().FirstOrDefault(c => c.TenDangNhap == userLogin), Times.Once); // Đảm bảo phương thức FirstOrDefault được gọi một lần với điều kiện TenDangNhap == expectedUsername
+        }
+        [Test, Order(9)]
+        public async Task QuenMks_Email()
+        {
+            // Arrange
+            var email = "abc";
+            var mailRequest = new MailRequest
+            {
+                ToEmail = email,
+          
+            };
+            var khachHangServiceMock = new Mock<IKhachHangService>();
+            var emailServiceMock = new Mock<IEmailService>();
+            var expectedKhachHang = new KhachHang { Email = email};
+            khachHangServiceMock.Setup(mock => mock.GetAll()).Returns(new List<KhachHang> { expectedKhachHang });
+            var controller = new HomeController(
+                Mock.Of<ILogger<HomeController>>(),
+                Mock.Of<IConfiguration>(),
+                Mock.Of<ITokenService>(),
+                Mock.Of<ILoginService>(),
+                Mock.Of<ICurrentUser>(),
+                khachHangServiceMock.Object, // Sử dụng mock của IKhachHangService
+                Mock.Of<ISanPhamService>(),
+                Mock.Of<IHttpClientFactory>(),
+                Mock.Of<IDiaChiNhanHangService>(),
+                Mock.Of<IGiamGiaService>(),
+                emailServiceMock.Object, // Sử dụng mock của IEmailService
+                Mock.Of<IGioHangService>()
+                );
+
+            // Act
+            await controller.QuenMks(mailRequest);
+
+            // Assert
+            khachHangServiceMock.Verify(mock => mock.GetAll(), Times.Once); // Đảm bảo phương thức GetAll() được gọi một lần
+            khachHangServiceMock.Verify(mock => mock.GetAll().FirstOrDefault(c => c.Email == email), Times.Once); // Đảm bảo phương thức FirstOrDefault được gọi một lần với điều kiện TenDangNhap == expectedUsername
         }
 
 

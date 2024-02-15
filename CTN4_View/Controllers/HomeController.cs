@@ -617,8 +617,7 @@ namespace CTN4_View.Controllers
 
 
             mailRequest.Subject = "Mật khẩu đăng nhập của wed bán túi poro của bạn là:";
-            mailRequest.Body = $"Mật khẩu là: {khachHang.MatKhau} ; " +
- $"<a href='https://localhost:7174/'>Ấn vào đây để vào cửa hàng </a>";
+            mailRequest.Body = $"Mật khẩu là: {khachHang.MatKhau} ; " + $"<a href='https://localhost:7174/'>Ấn vào đây để vào cửa hàng </a>";
 
             await _EmailService.SendEmailAsync(mailRequest);
 
