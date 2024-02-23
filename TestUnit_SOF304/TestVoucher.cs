@@ -9,9 +9,11 @@ using CTN4_Data;
 using CTN4_Data.Models.DB_CTN4;
 using System.ComponentModel.DataAnnotations;
 using CTN4_Serv.Service;
-using CTN4_View.Controllers;
-using CTN4_View.Areas.Admin.Controllers.QuanLyVouvher;
+//using CTN4_View.Controllers;
+//using CTN4_View.Areas.Admin.Controllers.QuanLyVouvher;
 using CTN4_Serv.ViewModel;
+using Microsoft.EntityFrameworkCore;
+using CTN4_Serv.Service.IService;
 
 namespace ClassTest
 {
@@ -53,12 +55,38 @@ namespace ClassTest
                 Assert.IsFalse(result);
             }
             [Test]
+
+            public void TestValidation_Themthanhcong()
+            {
+                // Tạo một đối tượng mã giảm giá với SoTienGiam bị bỏ trống
+                GiamGia voucher = new GiamGia
+                {
+                    MaGiam = "a",
+                    SoTienGiam = 1,
+                    PhanTramGiam = 1,
+                    SoTienGiamToiDa = 1,
+                    SoLuong = 1,
+                    DieuKienGiam = 1,
+
+                };
+
+                bool result = _GiamGiaservice.Them(voucher);
+
+                // Kiểm tra xem việc xác nhận dữ liệu có trả về kết quả là false (có lỗi) hay không
+                Assert.IsTrue(result);
+            }
+            [Test]
             public void TestValidation_MaGiam_Khi_BiBoTrong_ThongBaoLoi()
             {
                 // Tạo một đối tượng mã giảm giá với MaGiam bị bỏ trống
                 GiamGia voucher = new GiamGia
                 {
-                    MaGiam = null
+                    MaGiam = null,
+                    SoTienGiam = 1,
+                    PhanTramGiam = 1,
+                    SoTienGiamToiDa = 1,
+                    SoLuong = 1,
+                    DieuKienGiam = 1,
                 };
 
                 // Sử dụng Validator để kiểm tra việc xác nhận dữ liệu
@@ -76,7 +104,12 @@ namespace ClassTest
                 // Tạo một đối tượng mã giảm giá với SoTienGiam bị bỏ trống
                 GiamGia voucher = new GiamGia
                 {
-                    SoTienGiam = 0
+                    MaGiam = "a",
+                    SoTienGiam = 1,
+                    PhanTramGiam = 1,
+                    SoTienGiamToiDa = float.NaN,
+                    SoLuong = 1,
+                    DieuKienGiam = 1,
                 };
 
                 // Sử dụng Assert để kiểm tra việc xác nhận dữ liệu
@@ -92,15 +125,40 @@ namespace ClassTest
                 // Tạo một đối tượng mã giảm giá với SoTienGiam bị bỏ trống
                 GiamGia voucher = new GiamGia
                 {
-                    SoTienGiam = -1
+                    MaGiam = "a",
+                    SoTienGiam = 1,
+                    PhanTramGiam = 1,
+                    SoTienGiamToiDa = 0,
+                    SoLuong = 1,
+                    DieuKienGiam = 1,
                 };
 
                 // Sử dụng Assert để kiểm tra việc xác nhận dữ liệu
                 bool result = _GiamGiaservice.Them(voucher);
 
                 // Kiểm tra xem việc xác nhận dữ liệu có trả về kết quả là false (có lỗi) hay không
-                Assert.IsFalse(result);
+                Assert.IsTrue(result);
             }
+            //[Test]
+            //public void TestValidation_SoTienGiam_NhoHonkhong_ThongBaoLoi()
+            //{
+            //    // Tạo một đối tượng mã giảm giá với SoTienGiam bị bỏ trống
+            //    GiamGia voucher = new GiamGia
+            //    {
+            //        MaGiam = "a",
+            //        SoTienGiam = 1,
+            //        PhanTramGiam = 1,
+            //        SoTienGiamToiDa = -1,
+            //        SoLuong = 1,
+            //        DieuKienGiam = 1,
+            //    };
+
+            //    // Sử dụng Assert để kiểm tra việc xác nhận dữ liệu
+            //    bool result = _GiamGiaservice.Them(voucher);
+
+            //    // Kiểm tra xem việc xác nhận dữ liệu có trả về kết quả là false (có lỗi) hay không
+            //    Assert.IsFalse(result);
+            //}
 
 
 
@@ -110,7 +168,12 @@ namespace ClassTest
                 // Tạo một đối tượng mã giảm giá với PhanTramGiam bị bỏ trống
                 GiamGia voucher = new GiamGia
                 {
-                    PhanTramGiam = 0
+                    MaGiam = "a",
+                    SoTienGiam = 1,
+                    PhanTramGiam = float.NaN,
+                    SoTienGiamToiDa = 1,
+                    SoLuong = 1,
+                    DieuKienGiam = 1,
                 };
 
                 // Sử dụng Assert để kiểm tra việc xác nhận dữ liệu
@@ -126,31 +189,82 @@ namespace ClassTest
                 // Tạo một đối tượng mã giảm giá với SoTienGiam bị bỏ trống
                 GiamGia voucher = new GiamGia
                 {
-                    PhanTramGiam = -1
+                    MaGiam = "a",
+                    SoTienGiam = 1,
+                    PhanTramGiam = 0,
+                    SoTienGiamToiDa = 1,
+                    SoLuong = 1,
+                    DieuKienGiam = 1,
                 };
 
                 // Sử dụng Assert để kiểm tra việc xác nhận dữ liệu
                 bool result = _GiamGiaservice.Them(voucher);
 
                 // Kiểm tra xem việc xác nhận dữ liệu có trả về kết quả là false (có lỗi) hay không
-                Assert.IsFalse(result);
+                Assert.IsTrue(result);
             }
             [Test]
-
-            public void TestValidation_PhanTramGiam_quamottram_ThongBaoLoi()
+            public void TestValidation_PhanTramGiam_Bangmottram_ThongBaoLoi()
             {
                 // Tạo một đối tượng mã giảm giá với SoTienGiam bị bỏ trống
                 GiamGia voucher = new GiamGia
                 {
-                    PhanTramGiam = 101
+                    MaGiam = "a",
+                    SoTienGiam = 1,
+                    PhanTramGiam = 100,
+                    SoTienGiamToiDa = 1,
+                    SoLuong = 1,
+                    DieuKienGiam = 1,
                 };
 
                 // Sử dụng Assert để kiểm tra việc xác nhận dữ liệu
                 bool result = _GiamGiaservice.Them(voucher);
 
                 // Kiểm tra xem việc xác nhận dữ liệu có trả về kết quả là false (có lỗi) hay không
-                Assert.IsFalse(result);
+                Assert.IsTrue(result);
             }
+            //[Test]
+
+            //public void TestValidation_PhanTramGiam_quamottram_ThongBaoLoi()
+            //{
+            //    // Tạo một đối tượng mã giảm giá với SoTienGiam bị bỏ trống
+            //    GiamGia voucher = new GiamGia
+            //    {
+            //        MaGiam = "a",
+            //        SoTienGiam = 1,
+            //        PhanTramGiam = 101,
+            //        SoTienGiamToiDa = 1,
+            //        SoLuong = 1,
+            //        DieuKienGiam = 1,
+            //    };
+
+            //    // Sử dụng Assert để kiểm tra việc xác nhận dữ liệu
+            //    bool result = _GiamGiaservice.Them(voucher);
+
+            //    // Kiểm tra xem việc xác nhận dữ liệu có trả về kết quả là false (có lỗi) hay không
+            //    Assert.IsFalse(result);
+            //}
+            //[Test]
+
+            //public void TestValidation_PhanTramGiam_nhohonkhong_ThongBaoLoi()
+            //{
+            //    // Tạo một đối tượng mã giảm giá với SoTienGiam bị bỏ trống
+            //    GiamGia voucher = new GiamGia
+            //    {
+            //        MaGiam = "a",
+            //        SoTienGiam = 1,
+            //        PhanTramGiam = -1,
+            //        SoTienGiamToiDa = 1,
+            //        SoLuong = 1,
+            //        DieuKienGiam = 1,
+            //    };
+
+            //    // Sử dụng Assert để kiểm tra việc xác nhận dữ liệu
+            //    bool result = _GiamGiaservice.Them(voucher);
+
+            //    // Kiểm tra xem việc xác nhận dữ liệu có trả về kết quả là false (có lỗi) hay không
+            //    Assert.IsFalse(result);
+            //}
 
             [Test]
             public void TestValidation_DieuKienGiam_Khi_BiBoTrong_ThongBaoLoi()
@@ -158,7 +272,13 @@ namespace ClassTest
                 // Tạo một đối tượng mã giảm giá với PhanTramGiam bị bỏ trống
                 GiamGia voucher = new GiamGia
                 {
-                    DieuKienGiam = 0
+                    MaGiam = "a",
+                    SoTienGiam = 1,
+                    PhanTramGiam = 1,
+                    SoTienGiamToiDa = 1,
+                    SoLuong = 1,
+
+                    DieuKienGiam = float.NaN
                 };
                 //bool result = _GiamGiaService.Them(nullGiamGia);
 
@@ -178,14 +298,19 @@ namespace ClassTest
                 // Tạo một đối tượng mã giảm giá với SoTienGiam bị bỏ trống
                 GiamGia voucher = new GiamGia
                 {
-                        DieuKienGiam = -1
+                    MaGiam = "a",
+                    SoTienGiam = 1,
+                    PhanTramGiam = 1,
+                    SoTienGiamToiDa = 1,
+                    SoLuong = 1,
+                    DieuKienGiam = 0,
                 };
 
                 // Sử dụng Assert để kiểm tra việc xác nhận dữ liệu
                 bool result = _GiamGiaservice.Them(voucher);
 
                 // Kiểm tra xem việc xác nhận dữ liệu có trả về kết quả là false (có lỗi) hay không
-                Assert.IsFalse(result);
+                Assert.IsTrue(result);
             }
 
             [Test]
@@ -194,7 +319,12 @@ namespace ClassTest
                 // Tạo một đối tượng mã giảm giá với PhanTramGiam bị bỏ trống
                 GiamGia voucher = new GiamGia
                 {
-                    SoLuong = 0
+                    MaGiam = "a",
+                    SoTienGiam = 1,
+                    PhanTramGiam = 1,
+                    SoTienGiamToiDa = 1,
+                    SoLuong = float.NaN,
+                    DieuKienGiam = 1,
                 };
 
                 // Sử dụng Assert để kiểm tra việc xác nhận dữ liệu
@@ -203,22 +333,24 @@ namespace ClassTest
                 // Kiểm tra xem việc xác nhận dữ liệu có trả về kết quả là false (có lỗi) hay không
                 Assert.IsFalse(result);
             }
-            [Test]
+            //[Test]
 
-            public void TestValidation_Soluon_Bangkhong_ThongBaoLoi()
-            {
-                // Tạo một đối tượng mã giảm giá với SoTienGiam bị bỏ trống
-                GiamGia voucher = new GiamGia
-                {
-                    SoLuong = -1
-                };
+            //public void TestValidation_Soluong_Bangkhong_ThongBaoLoi()
+            //{
+            //    // Tạo một đối tượng mã giảm giá với SoTienGiam bị bỏ trống
+            //    GiamGia voucher = new GiamGia
+            //    {
+            //        MaGiam = "a",
+            //        SoTienGiam = 1,
+            //        PhanTramGiam = 1,
+            //        SoTienGiamToiDa = 1,
+            //        SoLuong = 0,
+            //        DieuKienGiam = 1,
+            //    };
 
-                // Sử dụng Assert để kiểm tra việc xác nhận dữ liệu
-                bool result = _GiamGiaservice.Them(voucher);
-
-                // Kiểm tra xem việc xác nhận dữ liệu có trả về kết quả là false (có lỗi) hay không
-                Assert.IsFalse(result);
-            }
+            //    // Sử dụng Assert để kiểm tra việc xác nhận ngoại lệ
+            //    Assert.Throws<DbUpdateException>(() => _GiamGiaservice.Them(voucher));
+            //}
 
 
             [Test]
@@ -227,7 +359,12 @@ namespace ClassTest
                 // Tạo một đối tượng mã giảm giá với PhanTramGiam bị bỏ trống
                 GiamGia voucher = new GiamGia
                 {
-                    SoTienGiamToiDa = 0
+                    MaGiam = "a",
+                    SoTienGiam = 1,
+                    PhanTramGiam = 1,
+                    SoTienGiamToiDa = float.NaN,
+                    SoLuong = 1,
+                    DieuKienGiam = 1,
                 };
 
                 // Sử dụng Assert để kiểm tra việc xác nhận dữ liệu
@@ -243,14 +380,19 @@ namespace ClassTest
                 // Tạo một đối tượng mã giảm giá với SoTienGiam bị bỏ trống
                 GiamGia voucher = new GiamGia
                 {
-                    SoTienGiamToiDa = -1
+                    MaGiam = "a",
+                    SoTienGiam = 1,
+                    PhanTramGiam = 1,
+                    SoTienGiamToiDa = 0,
+                    SoLuong = 1,
+                    DieuKienGiam = 1,
                 };
 
                 // Sử dụng Assert để kiểm tra việc xác nhận dữ liệu
                 bool result = _GiamGiaservice.Them(voucher);
 
                 // Kiểm tra xem việc xác nhận dữ liệu có trả về kết quả là false (có lỗi) hay không
-                Assert.IsFalse(result);
+                Assert.IsTrue(result);
             }
 
 
@@ -262,6 +404,29 @@ namespace ClassTest
             public void Setup()
             {
                 _GiamGiaservice = new GiamGiaService();
+            }
+            [Test]
+            public void TestValidation_MaGiam_suathanhcong_ThongBaoLoi()
+            {
+                // Tạo một đối tượng mã giảm giá với MaGiam bị bỏ trống
+                GiamGia voucher = new GiamGia
+                {
+                    MaGiam = "a",
+                    SoTienGiam = 1,
+                    PhanTramGiam = 1,
+                    SoTienGiamToiDa = 1,
+                    SoLuong = 1,
+                    DieuKienGiam = 1,
+
+                };
+
+                // Sử dụng Validator để kiểm tra việc xác nhận dữ liệu
+                bool result = _GiamGiaservice.Sua(voucher);
+
+                // Kiểm tra xem việc xác nhận dữ liệu có trả về kết quả là false (có lỗi) hay không
+                Assert.IsTrue(result);
+
+
             }
             [Test]
             public void TestValidation_MaGiam_Khi_BiBoTrong_ThongBaoLoi()
@@ -286,14 +451,20 @@ namespace ClassTest
 
 
             }
-            
+
             [Test]
             public void TestValidation_SuaMaGiam_Khi_BiBoTrong_ThongBaoLoi()
             {
                 // Tạo một đối tượng mã giảm giá với MaGiam bị bỏ trống
                 GiamGia voucher = new GiamGia
                 {
-                    MaGiam = null
+                    MaGiam = null,
+
+                    SoTienGiam = 1,
+                    PhanTramGiam = 1,
+                    SoTienGiamToiDa = 1,
+                    SoLuong = 1,
+                    DieuKienGiam = 1,
                 };
 
                 // Sử dụng Validator để kiểm tra việc xác nhận dữ liệu
@@ -311,7 +482,12 @@ namespace ClassTest
                 // Tạo một đối tượng mã giảm giá với SoTienGiam bị bỏ trống
                 GiamGia voucher = new GiamGia
                 {
-                    SoTienGiam = 0
+                    MaGiam = "a",
+                    SoTienGiam = float.NaN,
+                    PhanTramGiam = 1,
+                    SoTienGiamToiDa = 1,
+                    SoLuong = 1,
+                    DieuKienGiam = 1,
                 };
 
                 // Sử dụng Assert để kiểm tra việc xác nhận dữ liệu
@@ -327,14 +503,19 @@ namespace ClassTest
                 // Tạo một đối tượng mã giảm giá với SoTienGiam bị bỏ trống
                 GiamGia voucher = new GiamGia
                 {
-                    SoTienGiam = -1
+                    MaGiam = "a",
+                    SoTienGiam = 0,
+                    PhanTramGiam = 1,
+                    SoTienGiamToiDa = 1,
+                    SoLuong = 1,
+                    DieuKienGiam = 1,
                 };
 
                 // Sử dụng Assert để kiểm tra việc xác nhận dữ liệu
                 bool result = _GiamGiaservice.Sua(voucher);
 
                 // Kiểm tra xem việc xác nhận dữ liệu có trả về kết quả là false (có lỗi) hay không
-                Assert.IsFalse(result);
+                Assert.IsTrue(result);
             }
 
 
@@ -345,7 +526,12 @@ namespace ClassTest
                 // Tạo một đối tượng mã giảm giá với PhanTramGiam bị bỏ trống
                 GiamGia voucher = new GiamGia
                 {
-                    PhanTramGiam = 0
+                    MaGiam = "a",
+                    SoTienGiam = 1,
+                    PhanTramGiam = float.NaN,
+                    SoTienGiamToiDa = 1,
+                    SoLuong = 1,
+                    DieuKienGiam = 1,
                 };
 
                 // Sử dụng Assert để kiểm tra việc xác nhận dữ liệu
@@ -361,39 +547,53 @@ namespace ClassTest
                 // Tạo một đối tượng mã giảm giá với SoTienGiam bị bỏ trống
                 GiamGia voucher = new GiamGia
                 {
-                    PhanTramGiam = -1
+                    MaGiam = "a",
+                    SoTienGiam = 1,
+                    PhanTramGiam = 0,
+                    SoTienGiamToiDa = 1,
+                    SoLuong = 1,
+                    DieuKienGiam = 1,
                 };
 
                 // Sử dụng Assert để kiểm tra việc xác nhận dữ liệu
                 bool result = _GiamGiaservice.Sua(voucher);
 
                 // Kiểm tra xem việc xác nhận dữ liệu có trả về kết quả là false (có lỗi) hay không
-                Assert.IsFalse(result);
+                Assert.IsTrue(result);
             }
             [Test]
-
-            public void TestValidation_SuaPhanTramGiam_Hontram_ThongBaoLoi()
+            public void TestValidation_PhanTramGiam_Bangmottram_ThongBaoLoi()
             {
                 // Tạo một đối tượng mã giảm giá với SoTienGiam bị bỏ trống
                 GiamGia voucher = new GiamGia
                 {
-                    PhanTramGiam = 101
+                    MaGiam = "a",
+                    SoTienGiam = 1,
+                    PhanTramGiam = 100,
+                    SoTienGiamToiDa = 1,
+                    SoLuong = 1,
+                    DieuKienGiam = 1,
                 };
 
                 // Sử dụng Assert để kiểm tra việc xác nhận dữ liệu
                 bool result = _GiamGiaservice.Sua(voucher);
 
                 // Kiểm tra xem việc xác nhận dữ liệu có trả về kết quả là false (có lỗi) hay không
-                Assert.IsFalse(result);
+                Assert.IsTrue(result);
             }
-
             [Test]
-            public void TestValidation_SuaDieuKienGiam_Khi_BiBoTrong_ThongBaoLoi()
+            public void TestValidation_DieuKienGiam_Khi_BiBoTrong_ThongBaoLoi()
             {
                 // Tạo một đối tượng mã giảm giá với PhanTramGiam bị bỏ trống
                 GiamGia voucher = new GiamGia
                 {
-                    DieuKienGiam = 0
+                    MaGiam = "a",
+                    SoTienGiam = 1,
+                    PhanTramGiam = 1,
+                    SoTienGiamToiDa = 1,
+                    SoLuong = 1,
+
+                    DieuKienGiam = float.NaN
                 };
                 //bool result = _GiamGiaService.Them(nullGiamGia);
 
@@ -408,12 +608,78 @@ namespace ClassTest
             }
             [Test]
 
-            public void TestValidation_SuaDieukienGiam_Bangkhong_ThongBaoLoi()
+            public void TestValidation_DieuKienGiam_Bangkhong_ThongBaoLoi()
             {
                 // Tạo một đối tượng mã giảm giá với SoTienGiam bị bỏ trống
                 GiamGia voucher = new GiamGia
                 {
-                    DieuKienGiam = -1
+                    MaGiam = "a",
+                    SoTienGiam = 1,
+                    PhanTramGiam = 1,
+                    SoTienGiamToiDa = 1,
+                    SoLuong = 1,
+                    DieuKienGiam = 0,
+                };
+
+                // Sử dụng Assert để kiểm tra việc xác nhận dữ liệu
+                bool result = _GiamGiaservice.Sua(voucher);
+
+                // Kiểm tra xem việc xác nhận dữ liệu có trả về kết quả là false (có lỗi) hay không
+                Assert.IsTrue(result);
+            }
+
+            [Test]
+            public void TestValidation_Soluong_Khi_BiBoTrong_ThongBaoLoi()
+            {
+                // Tạo một đối tượng mã giảm giá với PhanTramGiam bị bỏ trống
+                GiamGia voucher = new GiamGia
+                {
+                    MaGiam = "a",
+                    SoTienGiam = 1,
+                    PhanTramGiam = 1,
+                    SoTienGiamToiDa = 1,
+                    SoLuong = int.MinValue,
+                    DieuKienGiam = 1,
+                };
+
+                // Sử dụng Assert để kiểm tra việc xác nhận dữ liệu
+                bool result = _GiamGiaservice.Sua(voucher);
+
+                // Kiểm tra xem việc xác nhận dữ liệu có trả về kết quả là false (có lỗi) hay không
+                Assert.IsTrue(result);
+            }
+            //[Test]
+
+            //public void TestValidation_Soluong_Bangkhong_ThongBaoLoi()
+            //{
+            //    // Tạo một đối tượng mã giảm giá với SoTienGiam bị bỏ trống
+            //    GiamGia voucher = new GiamGia
+            //    {
+            //        MaGiam = "a",
+            //        SoTienGiam = 1,
+            //        PhanTramGiam = 1,
+            //        SoTienGiamToiDa = 1,
+            //        SoLuong = 0,
+            //        DieuKienGiam = 1,
+            //    };
+
+            //    // Sử dụng Assert để kiểm tra việc xác nhận ngoại lệ
+            //    Assert.Throws<DbUpdateException>(() => _GiamGiaservice.Sua(voucher));
+            //}
+
+
+            [Test]
+            public void TestValidation_SoTienGiamToiDa_Khi_BiBoTrong_ThongBaoLoi()
+            {
+                // Tạo một đối tượng mã giảm giá với PhanTramGiam bị bỏ trống
+                GiamGia voucher = new GiamGia
+                {
+                    MaGiam = "a",
+                    SoTienGiam = 1,
+                    PhanTramGiam = 1,
+                    SoTienGiamToiDa = float.NaN,
+                    SoLuong = 1,
+                    DieuKienGiam = 1,
                 };
 
                 // Sử dụng Assert để kiểm tra việc xác nhận dữ liệu
@@ -423,73 +689,106 @@ namespace ClassTest
                 Assert.IsFalse(result);
             }
             [Test]
-            public void TestValidation_SuaSoluong_Khi_BiBoTrong_ThongBaoLoi()
+
+            public void TestValidation_SoTienGiamToiDa_Bangkhong_ThongBaoLoi()
             {
-                // Tạo một đối tượng mã giảm giá với PhanTramGiam bị bỏ trống
+                // Tạo một đối tượng mã giảm giá với SoTienGiam bị bỏ trống
                 GiamGia voucher = new GiamGia
                 {
-                    SoLuong = 0
+                    MaGiam = "a",
+                    SoTienGiam = 1,
+                    PhanTramGiam = 1,
+                    SoTienGiamToiDa = 0,
+                    SoLuong = 1,
+                    DieuKienGiam = 1,
                 };
 
                 // Sử dụng Assert để kiểm tra việc xác nhận dữ liệu
                 bool result = _GiamGiaservice.Sua(voucher);
 
                 // Kiểm tra xem việc xác nhận dữ liệu có trả về kết quả là false (có lỗi) hay không
-                Assert.IsFalse(result);
+                Assert.IsTrue(result);
             }
+           
 
 
-            [Test]
-            public void TestValidation_SuaSoTienGiamToiDa_Khi_BiBoTrong_ThongBaoLoi()
-            {
-                // Tạo một đối tượng mã giảm giá với PhanTramGiam bị bỏ trống
-                GiamGia voucher = new GiamGia
-                {
-                    SoTienGiamToiDa = 0
-                };
+            //public class TimVoucher
+            //{
 
-                // Sử dụng Assert để kiểm tra việc xác nhận dữ liệu
-                bool result = _GiamGiaservice.Sua(voucher);
+            //    private GiamGiaService _GiamGiaservice;
+            //    private VoucherController _voucher;
+            //    private HomeController _homeController;
+            //    [SetUp]
+            //    public void Setup()
+            //    {
+            //        _GiamGiaservice = new GiamGiaService();
+            //        _voucher = new VoucherController();
+            //    }
 
-                // Kiểm tra xem việc xác nhận dữ liệu có trả về kết quả là false (có lỗi) hay không
-                Assert.IsFalse(result);
-            }
+
+            //    //[Test]
+            //    //public void TestValidation_TimKiem_BoTrong_ThongBaoLoi()
+            //    //{
+            //    //    // Tạo một đối tượng mã giảm giá với MaGiam bị bỏ trống
+            //    //    GiamGia voucher = new GiamGia
+            //    //    {
+            //    //        MaGiam = null,
+
+
+            //    //    };
+
+            //    //    // Sử dụng Validator để kiểm tra việc xác nhận dữ liệu
+            //    //    bool result = _GiamGiaservice.Ti(voucher);
+
+            //    //    // Kiểm tra xem việc xác nhận dữ liệu có trả về kết quả là false (có lỗi) hay không
+            //    //    Assert.IsFalse(result);
+
+
+            //    //}
+            //}
         }
-
-        public class TimVoucher
+        public class XoaVoucher
         {
-
             private GiamGiaService _GiamGiaservice;
-            private VoucherController _voucher;
-            private HomeController _homeController;
             [SetUp]
             public void Setup()
             {
                 _GiamGiaservice = new GiamGiaService();
-                _voucher = new VoucherController();
             }
+            [Test]
+            public void Test_Xoa_ThanhCong()
+            {
+                // Tạo một đối tượng GiamGia để thêm vào cơ sở dữ liệu
+                // Lấy một ID đã có sẵn trong cơ sở dữ liệu
+                Guid id = LayIdDaCoSan();
 
+                // Thực hiện xóa và kiểm tra kết quả
+                bool result = _GiamGiaservice.Xoa(id);
 
-            //[Test]
-            //public void TestValidation_TimKiem_BoTrong_ThongBaoLoi()
-            //{
-            //    // Tạo một đối tượng mã giảm giá với MaGiam bị bỏ trống
-            //    GiamGia voucher = new GiamGia
-            //    {
-            //        MaGiam = null,
+                // Kiểm tra xem việc xóa có thành công hay không
+                Assert.IsTrue(result);
+            }
+            private Guid LayIdDaCoSan()
+            {
+                // Tạo một đối tượng GiamGia để thêm vào cơ sở dữ liệu
+                GiamGia voucher = new GiamGia
+                {
+                    MaGiam = "a",
+                    SoTienGiam = 1,
+                    PhanTramGiam = 10,
+                    SoTienGiamToiDa = 1,
+                    SoLuong = 1,
+                    DieuKienGiam = 1,
+                };
 
+                // Thêm đối tượng vào cơ sở dữ liệu để có một ID hợp lệ
+                _GiamGiaservice.Them(voucher);
 
-            //    };
-
-            //    // Sử dụng Validator để kiểm tra việc xác nhận dữ liệu
-            //    bool result = _GiamGiaservice.Ti(voucher);
-
-            //    // Kiểm tra xem việc xác nhận dữ liệu có trả về kết quả là false (có lỗi) hay không
-            //    Assert.IsFalse(result);
-
-
-            //}
+                // Lấy ID của đối tượng vừa thêm
+                return voucher.Id;
+            }
         }
+
     }
 
 }

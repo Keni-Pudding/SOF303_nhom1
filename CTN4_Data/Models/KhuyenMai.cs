@@ -11,7 +11,7 @@ namespace CTN4_Data.Models.DB_CTN4
 
         [Required(ErrorMessage = " không được bỏ trống.")]
         [Range(0, 100, ErrorMessage = "Phần trăm giảm giá phải nằm trong khoảng từ 0 đến 100.")]
-        public int PhanTramGiamGia { get; set; }
+        public float PhanTramGiamGia { get; set; }
 
         [Required(ErrorMessage = "Thời gian bắt đầu không được bỏ trống.")]
         public DateTime NgayBatDau { get; set; }

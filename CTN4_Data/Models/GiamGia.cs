@@ -24,7 +24,7 @@ namespace CTN4_Data.Models.DB_CTN4
 
         [Range(0, 100, ErrorMessage = "Phần trăm giảm phải lớn hơn hoặc bằng 0 và nhỏ hơn 100.")]
 
-        public int PhanTramGiam { get; set; }
+        public float PhanTramGiam { get; set; }
 
         public bool TrangThai { get; set; }
 
@@ -33,7 +33,7 @@ namespace CTN4_Data.Models.DB_CTN4
         [Required(ErrorMessage = "Số lượng không được bỏ trống.")]
         [Range(1, int.MaxValue, ErrorMessage = "Số lượng phải lớn hơn 0.")]
         //[StringLength(10, ErrorMessage = "Số lượng không được vượt quá 10 ký tự.")]
-        public int SoLuong { get; set; }
+        public float SoLuong { get; set; }
 
         [Required(ErrorMessage = "Thời gian bắt đầu không được bỏ trống.")]
         public DateTime NgayBatDau { get; set; }

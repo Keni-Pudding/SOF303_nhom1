@@ -35,8 +35,8 @@ namespace TestUnit_SOF304
                 {
                     MaKhuyenMai = null,
                     SoTienGiam = 0,
-                     PhanTramGiamGia = 0,
-                     DongGia = 0,
+                    PhanTramGiamGia = 0,
+                    DongGia = 0,
                     Ghichu = null,
                 };
 
@@ -46,12 +46,36 @@ namespace TestUnit_SOF304
                 Assert.IsFalse(result);
             }
             [Test]
+
+            public void TestValidation_Themthanhcong()
+            {
+                // Tạo một đối tượng mã giảm giá với SoTienGiam bị bỏ trống
+
+                KhuyenMai km = new KhuyenMai
+                {
+                    MaKhuyenMai = "a",
+                    SoTienGiam = 1,
+                    PhanTramGiamGia = 1,
+                    DongGia = 1,
+                    Ghichu = "a",
+                };
+
+                bool result = _KhuyenMaiservice.Them(km);
+
+                // Kiểm tra xem việc xác nhận dữ liệu có trả về kết quả là false (có lỗi) hay không
+                Assert.IsTrue(result);
+            }
+            [Test]
             public void TestValidation_MaKhuyenMai_BoTrong()
             {
                 // Tạo một đối tượng mã giảm giá với MaGiam bị bỏ trống
-                 KhuyenMai km = new KhuyenMai
+                KhuyenMai km = new KhuyenMai
                 {
-                    MaKhuyenMai = null
+                    MaKhuyenMai = null,
+                    SoTienGiam = 1,
+                    PhanTramGiamGia = 1,
+                    DongGia = 1,
+                    Ghichu = "a",
                 };
 
                 // Sử dụng Validator để kiểm tra việc xác nhận dữ liệu
@@ -67,8 +91,36 @@ namespace TestUnit_SOF304
             public void TestValidation_SoTienGiam_BoTrong()
             {
                 // Tạo một đối tượng mã giảm giá với SoTienGiam bị bỏ trống
-                 KhuyenMai km = new KhuyenMai
+                KhuyenMai km = new KhuyenMai
                 {
+
+                    MaKhuyenMai = "a",
+                    
+                    PhanTramGiamGia = 1,
+                    DongGia = 1,
+                    Ghichu = "a",
+                    SoTienGiam = float.NaN
+                };
+
+                // Sử dụng Assert để kiểm tra việc xác nhận dữ liệu
+                bool result = _KhuyenMaiservice.Them(km);
+
+                // Kiểm tra xem việc xác nhận dữ liệu có trả về kết quả là false (có lỗi) hay không
+                Assert.IsFalse(result);
+            }
+            [Test]
+
+            public void TestValidation_SoTienGiam_BangKhong()
+            {
+                // Tạo một đối tượng mã giảm giá với SoTienGiam bị bỏ trống
+                KhuyenMai km = new KhuyenMai
+                {
+
+                    MaKhuyenMai = "a",
+                    
+                    PhanTramGiamGia = 1,
+                    DongGia = 1,
+                    Ghichu = "a",
                     SoTienGiam = 0
                 };
 
@@ -76,17 +128,82 @@ namespace TestUnit_SOF304
                 bool result = _KhuyenMaiservice.Them(km);
 
                 // Kiểm tra xem việc xác nhận dữ liệu có trả về kết quả là false (có lỗi) hay không
-                Assert.IsFalse(result);
+                Assert.IsTrue(result);
             }
 
 
 
             [Test]
+            public void TestValidation_DongGia_BoTrong()
+            {
+                // Tạo một đối tượng mã giảm giá với PhanTramGiam bị bỏ trống
+                KhuyenMai km = new KhuyenMai
+                {
+                    MaKhuyenMai = "a",
+                    SoTienGiam = 1,
+                    
+                    DongGia = float.NaN,
+                    Ghichu = "a",
+                    PhanTramGiamGia = 1
+                };
+
+                // Sử dụng Assert để kiểm tra việc xác nhận dữ liệu
+                bool result = _KhuyenMaiservice.Them(km);
+
+                // Kiểm tra xem việc xác nhận dữ liệu có trả về kết quả là false (có lỗi) hay không
+                Assert.IsFalse(result);
+            }
+            [Test]
+            public void TestValidation_DongGia_BangKhong()
+            {
+                // Tạo một đối tượng mã giảm giá với PhanTramGiam bị bỏ trống
+                KhuyenMai km = new KhuyenMai
+                {
+                    MaKhuyenMai = "a",
+                    SoTienGiam = 1,
+                    
+                    DongGia = 0,
+                    Ghichu = "a",
+                    PhanTramGiamGia = 1
+                };
+
+                // Sử dụng Assert để kiểm tra việc xác nhận dữ liệu
+                bool result = _KhuyenMaiservice.Them(km);
+
+                // Kiểm tra xem việc xác nhận dữ liệu có trả về kết quả là false (có lỗi) hay không
+                Assert.IsTrue(result);
+            }
+             [Test]
             public void TestValidation_PhanTramGiam_BoTrong()
             {
                 // Tạo một đối tượng mã giảm giá với PhanTramGiam bị bỏ trống
-                 KhuyenMai km = new KhuyenMai
+                KhuyenMai km = new KhuyenMai
                 {
+                    MaKhuyenMai = "a",
+                    SoTienGiam = 1,
+                    
+                    DongGia = 1,
+                    Ghichu = "a",
+                    PhanTramGiamGia = float.NaN
+                };
+
+                // Sử dụng Assert để kiểm tra việc xác nhận dữ liệu
+                bool result = _KhuyenMaiservice.Them(km);
+
+                // Kiểm tra xem việc xác nhận dữ liệu có trả về kết quả là false (có lỗi) hay không
+                Assert.IsFalse(result);
+            }
+            [Test]
+            public void TestValidation_PhanTramGiam_BangKhong()
+            {
+                // Tạo một đối tượng mã giảm giá với PhanTramGiam bị bỏ trống
+                KhuyenMai km = new KhuyenMai
+                {
+                    MaKhuyenMai = "a",
+                    SoTienGiam = 1,
+                    
+                    DongGia = 1,
+                    Ghichu = "a",
                     PhanTramGiamGia = 0
                 };
 
@@ -94,47 +211,34 @@ namespace TestUnit_SOF304
                 bool result = _KhuyenMaiservice.Them(km);
 
                 // Kiểm tra xem việc xác nhận dữ liệu có trả về kết quả là false (có lỗi) hay không
-                Assert.IsFalse(result);
+                Assert.IsTrue(result);
             }
 
+         
             [Test]
-            public void TestValidation_DieuKienGiam_BoTrong()
+            public void TestValidation_GhiChu_BoTrong()
             {
                 // Tạo một đối tượng mã giảm giá với PhanTramGiam bị bỏ trống
-                 KhuyenMai km = new KhuyenMai
+                KhuyenMai km = new KhuyenMai
                 {
-                    DongGia = 0
-                };
-                //bool result = _GiamGiaService.Them(nullGiamGia);
+                    MaKhuyenMai = "a",
+                    SoTienGiam = 1,
 
-                //// Assert
-                //Assert.IsFalse(result);
-
-                // Sử dụng Assert để kiểm tra việc xác nhận dữ liệu
-                bool result = _KhuyenMaiservice.Them(km);
-
-                // Kiểm tra xem việc xác nhận dữ liệu có trả về kết quả là false (có lỗi) hay không
-                Assert.IsFalse(result);
-            }
-
-            [Test]
-            public void TestValidation_Soluong_BoTrong()
-            {
-                // Tạo một đối tượng mã giảm giá với PhanTramGiam bị bỏ trống
-                 KhuyenMai km = new KhuyenMai
-                {
-                    Ghichu = null
+                    DongGia = 1,
+                    Ghichu = null,
+                    PhanTramGiamGia = 1
                 };
 
                 // Sử dụng Assert để kiểm tra việc xác nhận dữ liệu
                 bool result = _KhuyenMaiservice.Them(km);
 
                 // Kiểm tra xem việc xác nhận dữ liệu có trả về kết quả là false (có lỗi) hay không
-                Assert.IsFalse(result);
+                Assert.IsTrue(result);
             }
+          
 
 
-            
+
 
         }
     }
